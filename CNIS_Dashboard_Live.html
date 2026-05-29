@@ -13,12 +13,17 @@ header h1 { font-size: 18px; font-weight: 500; }
 #status { font-size: 12px; opacity: 0.7; }
 #btn-refresh { background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.3); color: #fff; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; }
 #btn-refresh:hover { background: rgba(255,255,255,0.25); }
+#filtro-bar { background: #fff; border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 0.75rem 2rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+#filtro-bar label { font-size: 13px; color: #666; font-weight: 500; flex-shrink: 0; }
+#filtro-meses { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-mes { padding: 5px 14px; font-size: 12px; border-radius: 20px; cursor: pointer; border: 0.5px solid rgba(0,0,0,0.15); background: #fff; color: #444; transition: all 0.15s; }
+.btn-mes:hover { background: #f0f0ee; }
+.btn-mes.ativo { background: #1F3864; color: #fff; border-color: #1F3864; }
 main { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
 .loading { text-align: center; padding: 4rem; color: #aaa; font-size: 14px; }
 .error-box { background: #fff3f0; border: 1px solid #f0c0b0; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
 .error-box h3 { color: #D85A30; font-size: 14px; margin-bottom: 8px; }
 .error-box p { font-size: 13px; color: #666; line-height: 1.6; }
-.error-box code { background: #f5f5f3; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.5rem; }
 .kpi { background: #fff; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1rem 1.25rem; }
 .kpi-label { font-size: 12px; color: #888; margin-bottom: 4px; }
@@ -35,11 +40,6 @@ main { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
 .ins-label { font-size: 11px; color: #999; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
 .ins-month { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
 .ins-value { font-size: 13px; color: #666; line-height: 1.5; }
-.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.bar-label { font-size: 12px; color: #666; width: 180px; flex-shrink: 0; text-align: right; }
-.bar-track { flex: 1; background: #f0f0ee; border-radius: 4px; height: 8px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 4px; }
-.bar-val { font-size: 12px; color: #666; width: 75px; flex-shrink: 0; }
 .nota { font-size: 12px; color: #aaa; margin-top: 1rem; text-align: center; font-style: italic; }
 .chart-wrap { position: relative; width: 100%; }
 footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
@@ -47,7 +47,7 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
 @media (max-width: 640px) {
   .kpis { grid-template-columns: repeat(2, 1fr); }
   .insight-grid { grid-template-columns: 1fr; }
-  .bar-label { width: 110px; font-size: 11px; }
+  #filtro-bar { padding: 0.75rem 1rem; }
 }
 </style>
 </head>
@@ -61,21 +61,12 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
   </div>
 </header>
 
-<div id="filtro-bar" style="background:#fff; border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 0.75rem 2rem; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-  <label style="font-size:13px; color:#666; font-weight:500;">Filtrar por mês:</label>
-  <div id="filtro-meses" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+<div id="filtro-bar" class="hidden">
+  <label>Filtrar por mês:</label>
+  <div id="filtro-meses"></div>
 </div>
 
 <main>
-
-<div style="background:#fff; border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 0.75rem 1.5rem; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-  <label style="font-size:13px; color:#666; font-weight:500;">Filtrar por mês:</label>
-  <select id="filtro-mes" onchange="filtrar()" style="font-size:13px; padding:6px 12px; border:0.5px solid rgba(0,0,0,0.2); border-radius:6px; background:#fff; color:#1a1a1a; cursor:pointer;">
-    <option value="todos">Todos os meses</option>
-  </select>
-  <span id="filtro-info" style="font-size:12px; color:#aaa;"></span>
-</div>
-
 
 <div id="loading" class="loading">Buscando dados da planilha...</div>
 
@@ -91,7 +82,7 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
     <div class="kpi">
       <div class="kpi-label">Total vendido</div>
       <div class="kpi-value" id="kpi-vendas">—</div>
-      <div class="kpi-sub">acumulado</div>
+      <div class="kpi-sub" id="kpi-vendas-sub">acumulado</div>
     </div>
     <div class="kpi">
       <div class="kpi-label">Total recebido</div>
@@ -131,7 +122,7 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
   </div>
 
   <div class="section">
-    <div class="sec-title">Análise automática dos destaques</div>
+    <div class="sec-title">Análise dos destaques</div>
     <div class="insight-grid" id="insights"></div>
   </div>
 
@@ -140,37 +131,13 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
 
 <footer id="footer-txt">CNIS Revelado &nbsp;·&nbsp; Uso interno</footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js">
-function popularFiltro(data) {
-  const sel = document.getElementById('filtro-mes');
-  sel.innerHTML = '<option value="todos">Todos os meses</option>';
-  data.forEach(d => {
-    const opt = document.createElement('option');
-    opt.value = d.mes;
-    opt.textContent = d.mes;
-    sel.appendChild(opt);
-  });
-}
-
-function filtrar() {
-  const sel = document.getElementById('filtro-mes').value;
-  const info = document.getElementById('filtro-info');
-  if (sel === 'todos') {
-    info.textContent = '';
-    renderizar(dadosGlobais);
-  } else {
-    const filtrado = dadosGlobais.filter(d => d.mes === sel);
-    info.textContent = filtrado.length ? '' : 'Mês não encontrado';
-    renderizar(filtrado);
-  }
-}
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-// ─── COLE A URL DO SEU APPS SCRIPT AQUI ───────────────────────────────────
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzjkHJKc-MNnFYvnhwfsRx6Q8XyINdBGGextjXqU5JT64H6qw9RIRyPMEVJu8iiP0wm/exec';
-// ──────────────────────────────────────────────────────────────────────────
 
 let chart1 = null, chart2 = null;
+let dadosCompletos = [];
+let mesSelecionado = 'todos';
 
 const brl = v => {
   const abs = Math.abs(v);
@@ -182,37 +149,46 @@ const brlFull = v => {
   return (v < 0 ? '-R$ ' : 'R$ ') + Math.abs(v).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
 };
 
+function renderFiltros() {
+  const container = document.getElementById('filtro-meses');
+  const opcoes = ['todos', ...dadosCompletos.map(d => d.mes)];
+  container.innerHTML = opcoes.map(m => {
+    const ativo = m === mesSelecionado ? 'ativo' : '';
+    const label = m === 'todos' ? 'Todos os meses' : m;
+    return `<button class="btn-mes ${ativo}" onclick="filtrarMes('${m}')">${label}</button>`;
+  }).join('');
+  document.getElementById('filtro-bar').classList.remove('hidden');
+}
+
+function filtrarMes(mes) {
+  mesSelecionado = mes;
+  renderFiltros();
+  const dados = mes === 'todos' ? dadosCompletos : dadosCompletos.filter(d => d.mes === mes);
+  renderizar(dados);
+}
+
 async function carregarDados() {
   document.getElementById('status').textContent = 'Atualizando...';
   document.getElementById('loading').classList.remove('hidden');
   document.getElementById('conteudo').classList.add('hidden');
   document.getElementById('error-box').classList.add('hidden');
-
-  if (!SHEET_URL || SHEET_URL === 'COLE_SUA_URL_AQUI') {
-    mostrarErro('URL do Apps Script não configurada. Abra o arquivo HTML em um editor de texto e a URL não foi configurada corretamente.');
-    return;
-  }
+  document.getElementById('filtro-bar').classList.add('hidden');
 
   try {
     const res = await fetch(SHEET_URL);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) throw new Error('Nenhum dado encontrado na aba Histórico.');
-    dadosGlobais = data;
-    popularFiltro(data);
     dadosCompletos = data;
+    mesSelecionado = 'todos';
     renderFiltros();
     renderizar(data);
   } catch(e) {
-    mostrarErro('Erro ao buscar dados: ' + e.message);
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('error-msg').textContent = 'Erro ao buscar dados: ' + e.message;
+    document.getElementById('error-box').classList.remove('hidden');
+    document.getElementById('status').textContent = 'Erro';
   }
-}
-
-function mostrarErro(msg) {
-  document.getElementById('loading').classList.add('hidden');
-  document.getElementById('error-msg').textContent = msg;
-  document.getElementById('error-box').classList.remove('hidden');
-  document.getElementById('status').textContent = 'Erro';
 }
 
 function renderizar(data) {
@@ -227,15 +203,16 @@ function renderizar(data) {
   const totDespesas = despesas.reduce((a,b) => a+b, 0);
   const totResult   = resultado.reduce((a,b) => a+b, 0);
 
-  document.getElementById('kpi-vendas').textContent    = brl(totVendas);
-  document.getElementById('kpi-receitas').textContent  = brl(totReceitas);
-  document.getElementById('kpi-despesas').textContent  = brl(totDespesas);
+  document.getElementById('kpi-vendas').textContent   = brl(totVendas);
+  document.getElementById('kpi-receitas').textContent = brl(totReceitas);
+  document.getElementById('kpi-despesas').textContent = brl(totDespesas);
 
   const kpiRes = document.getElementById('kpi-resultado');
   kpiRes.textContent = brl(totResult);
   kpiRes.className = 'kpi-value ' + (totResult >= 0 ? 'pos' : 'neg');
-  document.getElementById('kpi-resultado-sub').textContent = totResult >= 0 ? 'lucro acumulado' : 'prejuízo acumulado';
-  document.getElementById('kpi-resultado-sub').className = 'kpi-sub ' + (totResult >= 0 ? 'pos' : 'neg');
+  const subRes = document.getElementById('kpi-resultado-sub');
+  subRes.textContent = totResult >= 0 ? 'lucro' : 'prejuízo';
+  subRes.className = 'kpi-sub ' + (totResult >= 0 ? 'pos' : 'neg');
 
   const gridColor = 'rgba(0,0,0,0.06)';
   const tickColor = 'rgba(0,0,0,0.45)';
@@ -246,9 +223,9 @@ function renderizar(data) {
     data: {
       labels: meses,
       datasets: [
-        { label: 'Vendas',    data: vendas,   backgroundColor: '#378ADD', borderRadius: 3 },
-        { label: 'Receitas',  data: receitas, backgroundColor: '#1D9E75', borderRadius: 3 },
-        { label: 'Despesas',  data: despesas, backgroundColor: '#D85A30', borderRadius: 3 },
+        { label: 'Vendas',   data: vendas,   backgroundColor: '#378ADD', borderRadius: 3 },
+        { label: 'Receitas', data: receitas, backgroundColor: '#1D9E75', borderRadius: 3 },
+        { label: 'Despesas', data: despesas, backgroundColor: '#D85A30', borderRadius: 3 },
       ]
     },
     options: {
@@ -283,7 +260,6 @@ function renderizar(data) {
     }
   });
 
-  // Insights automáticos
   const maxRec  = data.reduce((a,b) => b.receita > a.receita ? b : a);
   const maxRes  = data.reduce((a,b) => b.resultado > a.resultado ? b : a);
   const maxVend = data.reduce((a,b) => b.vendas > a.vendas ? b : a);
@@ -310,31 +286,8 @@ function renderizar(data) {
   const agora = new Date().toLocaleString('pt-BR');
   document.getElementById('status').textContent = 'Atualizado em ' + agora;
   document.getElementById('footer-txt').textContent = 'CNIS Revelado · Dados atualizados em ' + agora + ' · Uso interno';
-
   document.getElementById('loading').classList.add('hidden');
   document.getElementById('conteudo').classList.remove('hidden');
-}
-
-let dadosGlobais = [];
-
-let dadosCompletos = [];
-let mesSelecionado = 'todos';
-
-function renderFiltros() {
-  const container = document.getElementById('filtro-meses');
-  const meses = ['todos', ...dadosCompletos.map(d => d.mes)];
-  container.innerHTML = meses.map(m => `
-    <button onclick="filtrarMes('${m}')" id="btn-${m.replace('/','_')}"
-      style="padding:5px 12px; font-size:12px; border-radius:20px; cursor:pointer; border: 0.5px solid rgba(0,0,0,0.15); background:${m === mesSelecionado ? '#1F3864' : '#fff'}; color:${m === mesSelecionado ? '#fff' : '#444'}; transition: all 0.15s;">
-      ${m === 'todos' ? 'Todos os meses' : m}
-    </button>`).join('');
-}
-
-function filtrarMes(mes) {
-  mesSelecionado = mes;
-  renderFiltros();
-  const dados = mes === 'todos' ? dadosCompletos : dadosCompletos.filter(d => d.mes === mes);
-  renderizar(dados);
 }
 
 carregarDados();
