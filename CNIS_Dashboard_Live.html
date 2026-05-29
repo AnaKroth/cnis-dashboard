@@ -150,8 +150,8 @@ async function carregarDados() {
   document.getElementById('conteudo').classList.add('hidden');
   document.getElementById('error-box').classList.add('hidden');
 
-  if (!SHEET_URL || SHEET_URL === 'https://script.google.com/macros/s/AKfycbwhO-nfxOcAikSo8xuPe_d7nwxEVPQZBykVd5G9XizqP9Su3iurJxrR_HTTtSkBXooG/exec') {
-    mostrarErro('URL do Apps Script não configurada. Abra o arquivo HTML em um editor de texto e substitua https://script.google.com/macros/s/AKfycbwhO-nfxOcAikSo8xuPe_d7nwxEVPQZBykVd5G9XizqP9Su3iurJxrR_HTTtSkBXooG/exec pela URL gerada no Google Apps Script.');
+  if (!SHEET_URL || SHEET_URL === 'COLE_SUA_URL_AQUI') {
+    mostrarErro('URL do Apps Script não configurada. Abra o arquivo HTML em um editor de texto e a URL ainda não foi configurada corretamente.');
     return;
   }
 
