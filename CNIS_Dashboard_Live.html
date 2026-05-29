@@ -129,7 +129,7 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 // ─── COLE A URL DO SEU APPS SCRIPT AQUI ───────────────────────────────────
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwhO-nfxOcAikSo8xuPe_d7nwxEVPQZBykVd5G9XizqP9Su3iurJxrR_HTTtSkBXooG/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzjkHJKc-MNnFYvnhwfsRx6Q8XyINdBGGextjXqU5JT64H6qw9RIRyPMEVJu8iiP0wm/exec';
 // ──────────────────────────────────────────────────────────────────────────
 
 let chart1 = null, chart2 = null;
@@ -151,7 +151,7 @@ async function carregarDados() {
   document.getElementById('error-box').classList.add('hidden');
 
   if (!SHEET_URL || SHEET_URL === 'COLE_SUA_URL_AQUI') {
-    mostrarErro('URL do Apps Script não configurada. Abra o arquivo HTML em um editor de texto e a URL ainda não foi configurada corretamente.');
+    mostrarErro('URL do Apps Script não configurada. Abra o arquivo HTML em um editor de texto e a URL não foi configurada corretamente.');
     return;
   }
 
