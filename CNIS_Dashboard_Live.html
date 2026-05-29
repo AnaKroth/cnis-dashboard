@@ -61,7 +61,21 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
   </div>
 </header>
 
+<div id="filtro-bar" style="background:#fff; border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 0.75rem 2rem; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+  <label style="font-size:13px; color:#666; font-weight:500;">Filtrar por mês:</label>
+  <div id="filtro-meses" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+</div>
+
 <main>
+
+<div style="background:#fff; border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 0.75rem 1.5rem; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+  <label style="font-size:13px; color:#666; font-weight:500;">Filtrar por mês:</label>
+  <select id="filtro-mes" onchange="filtrar()" style="font-size:13px; padding:6px 12px; border:0.5px solid rgba(0,0,0,0.2); border-radius:6px; background:#fff; color:#1a1a1a; cursor:pointer;">
+    <option value="todos">Todos os meses</option>
+  </select>
+  <span id="filtro-info" style="font-size:12px; color:#aaa;"></span>
+</div>
+
 
 <div id="loading" class="loading">Buscando dados da planilha...</div>
 
@@ -126,7 +140,31 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
 
 <footer id="footer-txt">CNIS Revelado &nbsp;·&nbsp; Uso interno</footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js">
+function popularFiltro(data) {
+  const sel = document.getElementById('filtro-mes');
+  sel.innerHTML = '<option value="todos">Todos os meses</option>';
+  data.forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d.mes;
+    opt.textContent = d.mes;
+    sel.appendChild(opt);
+  });
+}
+
+function filtrar() {
+  const sel = document.getElementById('filtro-mes').value;
+  const info = document.getElementById('filtro-info');
+  if (sel === 'todos') {
+    info.textContent = '';
+    renderizar(dadosGlobais);
+  } else {
+    const filtrado = dadosGlobais.filter(d => d.mes === sel);
+    info.textContent = filtrado.length ? '' : 'Mês não encontrado';
+    renderizar(filtrado);
+  }
+}
+</script>
 <script>
 // ─── COLE A URL DO SEU APPS SCRIPT AQUI ───────────────────────────────────
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzjkHJKc-MNnFYvnhwfsRx6Q8XyINdBGGextjXqU5JT64H6qw9RIRyPMEVJu8iiP0wm/exec';
@@ -160,6 +198,10 @@ async function carregarDados() {
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (!Array.isArray(data) || data.length === 0) throw new Error('Nenhum dado encontrado na aba Histórico.');
+    dadosGlobais = data;
+    popularFiltro(data);
+    dadosCompletos = data;
+    renderFiltros();
     renderizar(data);
   } catch(e) {
     mostrarErro('Erro ao buscar dados: ' + e.message);
@@ -271,6 +313,28 @@ function renderizar(data) {
 
   document.getElementById('loading').classList.add('hidden');
   document.getElementById('conteudo').classList.remove('hidden');
+}
+
+let dadosGlobais = [];
+
+let dadosCompletos = [];
+let mesSelecionado = 'todos';
+
+function renderFiltros() {
+  const container = document.getElementById('filtro-meses');
+  const meses = ['todos', ...dadosCompletos.map(d => d.mes)];
+  container.innerHTML = meses.map(m => `
+    <button onclick="filtrarMes('${m}')" id="btn-${m.replace('/','_')}"
+      style="padding:5px 12px; font-size:12px; border-radius:20px; cursor:pointer; border: 0.5px solid rgba(0,0,0,0.15); background:${m === mesSelecionado ? '#1F3864' : '#fff'}; color:${m === mesSelecionado ? '#fff' : '#444'}; transition: all 0.15s;">
+      ${m === 'todos' ? 'Todos os meses' : m}
+    </button>`).join('');
+}
+
+function filtrarMes(mes) {
+  mesSelecionado = mes;
+  renderFiltros();
+  const dados = mes === 'todos' ? dadosCompletos : dadosCompletos.filter(d => d.mes === mes);
+  renderizar(dados);
 }
 
 carregarDados();
