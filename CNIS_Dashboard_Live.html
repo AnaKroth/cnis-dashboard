@@ -13,41 +13,56 @@ header h1 { font-size: 18px; font-weight: 500; }
 #status { font-size: 12px; opacity: 0.7; }
 #btn-refresh { background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.3); color: #fff; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; }
 #btn-refresh:hover { background: rgba(255,255,255,0.25); }
+
 #filtro-bar { background: #fff; border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 0.75rem 2rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-#filtro-bar label { font-size: 13px; color: #666; font-weight: 500; flex-shrink: 0; }
+#filtro-bar label { font-size: 13px; color: #666; font-weight: 500; }
 #filtro-meses { display: flex; gap: 8px; flex-wrap: wrap; }
-.btn-mes { padding: 5px 14px; font-size: 12px; border-radius: 20px; cursor: pointer; border: 0.5px solid rgba(0,0,0,0.15); background: #fff; color: #444; transition: all 0.15s; }
-.btn-mes:hover { background: #f0f0ee; }
+.btn-mes { padding: 5px 12px; font-size: 12px; border-radius: 20px; cursor: pointer; border: 0.5px solid rgba(0,0,0,0.15); background: #fff; color: #444; transition: all 0.15s; }
 .btn-mes.ativo { background: #1F3864; color: #fff; border-color: #1F3864; }
+
 main { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
 .loading { text-align: center; padding: 4rem; color: #aaa; font-size: 14px; }
 .error-box { background: #fff3f0; border: 1px solid #f0c0b0; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
 .error-box h3 { color: #D85A30; font-size: 14px; margin-bottom: 8px; }
 .error-box p { font-size: 13px; color: #666; line-height: 1.6; }
-.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+.error-box code { background: #f5f5f3; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1rem; }
+.kpis2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
 .kpi { background: #fff; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1rem 1.25rem; }
 .kpi-label { font-size: 12px; color: #888; margin-bottom: 4px; }
 .kpi-value { font-size: 22px; font-weight: 500; color: #1a1a1a; }
 .kpi-sub { font-size: 12px; color: #aaa; margin-top: 4px; }
 .pos { color: #1D9E75; }
 .neg { color: #D85A30; }
+
 .section { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
 .sec-title { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
 .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; font-size: 12px; color: #666; }
 .leg-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 5px; vertical-align: middle; }
+
 .insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .insight-card { background: #f9f9f7; border-radius: 8px; padding: 1rem; }
 .ins-label { font-size: 11px; color: #999; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
 .ins-month { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
 .ins-value { font-size: 13px; color: #666; line-height: 1.5; }
+
+.desp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.bar-label { font-size: 12px; color: #666; width: 160px; flex-shrink: 0; text-align: right; }
+.bar-track { flex: 1; background: #f0f0ee; border-radius: 4px; height: 8px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; }
+.bar-val { font-size: 12px; color: #666; width: 80px; flex-shrink: 0; }
+
 .nota { font-size: 12px; color: #aaa; margin-top: 1rem; text-align: center; font-style: italic; }
 .chart-wrap { position: relative; width: 100%; }
 footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
 .hidden { display: none; }
+
 @media (max-width: 640px) {
-  .kpis { grid-template-columns: repeat(2, 1fr); }
-  .insight-grid { grid-template-columns: 1fr; }
-  #filtro-bar { padding: 0.75rem 1rem; }
+  .kpis, .kpis2 { grid-template-columns: repeat(2, 1fr); }
+  .insight-grid, .desp-grid { grid-template-columns: 1fr; }
+  .bar-label { width: 100px; font-size: 11px; }
 }
 </style>
 </head>
@@ -61,103 +76,162 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
   </div>
 </header>
 
-<div id="filtro-bar" class="hidden">
+<div id="filtro-bar">
   <label>Filtrar por mês:</label>
   <div id="filtro-meses"></div>
 </div>
 
 <main>
+  <div id="loading" class="loading">Buscando dados da planilha...</div>
 
-<div id="loading" class="loading">Buscando dados da planilha...</div>
-
-<div id="error-box" class="error-box hidden">
-  <h3>⚠ Não foi possível carregar os dados</h3>
-  <p id="error-msg"></p>
-  <p style="margin-top:8px">Verifique se a URL do script está correta e se a implantação permite acesso a <code>Qualquer pessoa</code>.</p>
-</div>
-
-<div id="conteudo" class="hidden">
-
-  <div class="kpis">
-    <div class="kpi">
-      <div class="kpi-label">Total vendido</div>
-      <div class="kpi-value" id="kpi-vendas">—</div>
-      <div class="kpi-sub" id="kpi-vendas-sub">acumulado</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Total recebido</div>
-      <div class="kpi-value" id="kpi-receitas">—</div>
-      <div class="kpi-sub">regime de caixa</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Total despesas</div>
-      <div class="kpi-value" id="kpi-despesas">—</div>
-      <div class="kpi-sub">acumulado</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Resultado líquido</div>
-      <div class="kpi-value" id="kpi-resultado">—</div>
-      <div class="kpi-sub" id="kpi-resultado-sub">—</div>
-    </div>
+  <div id="error-box" class="error-box hidden">
+    <h3>⚠ Não foi possível carregar os dados</h3>
+    <p id="error-msg"></p>
+    <p style="margin-top:8px">Verifique se a URL do script está correta e se a implantação permite acesso a <code>Qualquer pessoa</code>.</p>
   </div>
 
-  <div class="section">
-    <div class="sec-title">Vendas × Receitas × Despesas por mês</div>
-    <div class="legend">
-      <span><span class="leg-dot" style="background:#378ADD"></span>Vendas (bruto)</span>
-      <span><span class="leg-dot" style="background:#1D9E75"></span>Receitas (caixa)</span>
-      <span><span class="leg-dot" style="background:#D85A30"></span>Despesas</span>
-    </div>
-    <div class="chart-wrap" style="height:300px;">
-      <canvas id="c1" role="img" aria-label="Vendas, receitas e despesas mensais"></canvas>
-    </div>
-    <p class="nota">Receitas em regime de caixa (D+30 Eduzz) — o que entrou na conta, não o que foi vendido.</p>
-  </div>
+  <div id="conteudo" class="hidden">
 
-  <div class="section">
-    <div class="sec-title">Resultado mensal — lucro / prejuízo</div>
-    <div class="chart-wrap" style="height:240px;">
-      <canvas id="c2" role="img" aria-label="Resultado mensal positivo ou negativo"></canvas>
+    <!-- KPIs linha 1: Vendas -->
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-label">Total vendido (bruto)</div>
+        <div class="kpi-value" id="kpi-vendas">—</div>
+        <div class="kpi-sub">acumulado</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Ganho líquido vendas</div>
+        <div class="kpi-value" id="kpi-ganho">—</div>
+        <div class="kpi-sub">após taxa e comissão</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Taxa plataforma</div>
+        <div class="kpi-value neg" id="kpi-taxa">—</div>
+        <div class="kpi-sub">acumulado</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Comissão Ana</div>
+        <div class="kpi-value" id="kpi-comissao">—</div>
+        <div class="kpi-sub">acumulado</div>
+      </div>
     </div>
-  </div>
 
-  <div class="section">
-    <div class="sec-title">Análise dos destaques</div>
-    <div class="insight-grid" id="insights"></div>
-  </div>
+    <!-- KPIs linha 2: Caixa -->
+    <div class="kpis2">
+      <div class="kpi">
+        <div class="kpi-label">Receitas de caixa</div>
+        <div class="kpi-value pos" id="kpi-receita">—</div>
+        <div class="kpi-sub">dinheiro recebido</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Despesas operacionais</div>
+        <div class="kpi-value neg" id="kpi-desp-op">—</div>
+        <div class="kpi-sub">custo do negócio</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Retiradas sócios</div>
+        <div class="kpi-value neg" id="kpi-retiradas">—</div>
+        <div class="kpi-sub">acumulado</div>
+      </div>
+    </div>
 
-</div>
+    <div class="section">
+      <div class="sec-title">Resultado de caixa</div>
+      <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+        <div style="font-size:36px; font-weight:500;" id="kpi-resultado-big">—</div>
+        <div style="font-size:13px; color:#888;" id="kpi-resultado-label">—</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-title">Vendas × Receitas × Despesas por mês</div>
+      <div class="legend">
+        <span><span class="leg-dot" style="background:#378ADD"></span>Vendas brutas</span>
+        <span><span class="leg-dot" style="background:#1D9E75"></span>Receitas caixa</span>
+        <span><span class="leg-dot" style="background:#D85A30"></span>Desp. operacional</span>
+        <span><span class="leg-dot" style="background:#BA7517"></span>Retiradas sócios</span>
+      </div>
+      <div class="chart-wrap" style="height:300px;">
+        <canvas id="c1"></canvas>
+      </div>
+      <p class="nota">Receitas em regime de caixa (D+30 Eduzz).</p>
+    </div>
+
+    <div class="section">
+      <div class="sec-title">Resultado de caixa por mês</div>
+      <div class="chart-wrap" style="height:240px;">
+        <canvas id="c2"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-title">Despesas operacionais vs Retiradas</div>
+      <div class="desp-grid">
+        <div>
+          <div style="font-size:12px; color:#888; margin-bottom:10px;">Despesas Operacionais</div>
+          <div id="bars-op"></div>
+        </div>
+        <div>
+          <div style="font-size:12px; color:#888; margin-bottom:10px;">Retiradas por Mês</div>
+          <div id="bars-ret"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-title">Análise dos destaques</div>
+      <div class="insight-grid" id="insights"></div>
+    </div>
+
+  </div>
 </main>
 
 <footer id="footer-txt">CNIS Revelado &nbsp;·&nbsp; Uso interno</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzjkHJKc-MNnFYvnhwfsRx6Q8XyINdBGGextjXqU5JT64H6qw9RIRyPMEVJu8iiP0wm/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycby_TqbjIhIe3L-es6X260GrkPdYazoG-rUS1lNImBwFzRWBsheMdbZBDYahSjYKih4A/exec';
 
-let chart1 = null, chart2 = null;
 let dadosCompletos = [];
 let mesSelecionado = 'todos';
+let chart1 = null, chart2 = null;
 
 const brl = v => {
   const abs = Math.abs(v);
   const s = abs >= 1000 ? 'R$ ' + (abs/1000).toFixed(1) + 'k' : 'R$ ' + Math.round(abs).toLocaleString('pt-BR');
   return (v < 0 ? '-' : '') + s;
 };
+const brlFull = v => (v < 0 ? '-R$ ' : 'R$ ') + Math.abs(v).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
 
-const brlFull = v => {
-  return (v < 0 ? '-R$ ' : 'R$ ') + Math.abs(v).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
-};
+async function carregarDados() {
+  document.getElementById('status').textContent = 'Atualizando...';
+  document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('conteudo').classList.add('hidden');
+  document.getElementById('error-box').classList.add('hidden');
+
+  try {
+    const res = await fetch(SHEET_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) throw new Error('Nenhum dado encontrado.');
+    dadosCompletos = data;
+    renderFiltros();
+    renderizar(data);
+  } catch(e) {
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('error-msg').textContent = 'Erro: ' + e.message;
+    document.getElementById('error-box').classList.remove('hidden');
+    document.getElementById('status').textContent = 'Erro';
+  }
+}
 
 function renderFiltros() {
   const container = document.getElementById('filtro-meses');
-  const opcoes = ['todos', ...dadosCompletos.map(d => d.mes)];
-  container.innerHTML = opcoes.map(m => {
-    const ativo = m === mesSelecionado ? 'ativo' : '';
-    const label = m === 'todos' ? 'Todos os meses' : m;
-    return `<button class="btn-mes ${ativo}" onclick="filtrarMes('${m}')">${label}</button>`;
-  }).join('');
-  document.getElementById('filtro-bar').classList.remove('hidden');
+  const meses = ['todos', ...dadosCompletos.map(d => d.mes)];
+  container.innerHTML = meses.map(m => `
+    <button class="btn-mes ${m === mesSelecionado ? 'ativo' : ''}" onclick="filtrarMes('${m}')">
+      ${m === 'todos' ? 'Todos os meses' : m}
+    </button>`).join('');
 }
 
 function filtrarMes(mes) {
@@ -167,52 +241,36 @@ function filtrarMes(mes) {
   renderizar(dados);
 }
 
-async function carregarDados() {
-  document.getElementById('status').textContent = 'Atualizando...';
-  document.getElementById('loading').classList.remove('hidden');
-  document.getElementById('conteudo').classList.add('hidden');
-  document.getElementById('error-box').classList.add('hidden');
-  document.getElementById('filtro-bar').classList.add('hidden');
-
-  try {
-    const res = await fetch(SHEET_URL);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    if (!Array.isArray(data) || data.length === 0) throw new Error('Nenhum dado encontrado na aba Histórico.');
-    dadosCompletos = data;
-    mesSelecionado = 'todos';
-    renderFiltros();
-    renderizar(data);
-  } catch(e) {
-    document.getElementById('loading').classList.add('hidden');
-    document.getElementById('error-msg').textContent = 'Erro ao buscar dados: ' + e.message;
-    document.getElementById('error-box').classList.remove('hidden');
-    document.getElementById('status').textContent = 'Erro';
-  }
-}
-
 function renderizar(data) {
   const meses    = data.map(d => d.mes);
   const vendas   = data.map(d => d.vendas);
+  const ganho    = data.map(d => d.ganho_liq);
+  const taxas    = data.map(d => d.taxa);
+  const comiss   = data.map(d => d.comissao);
   const receitas = data.map(d => d.receita);
-  const despesas = data.map(d => d.despesas);
-  const resultado= data.map(d => d.resultado);
+  const despOp   = data.map(d => d.desp_op);
+  const retir    = data.map(d => d.retiradas);
+  const result   = data.map(d => d.resultado);
 
-  const totVendas   = vendas.reduce((a,b) => a+b, 0);
-  const totReceitas = receitas.reduce((a,b) => a+b, 0);
-  const totDespesas = despesas.reduce((a,b) => a+b, 0);
-  const totResult   = resultado.reduce((a,b) => a+b, 0);
+  const sum = arr => arr.reduce((a,b) => a+b, 0);
+  const totV  = sum(vendas);  const totG = sum(ganho);
+  const totT  = sum(taxas);   const totC = sum(comiss);
+  const totR  = sum(receitas); const totO = sum(despOp);
+  const totRet= sum(retir);   const totRes= sum(result);
 
-  document.getElementById('kpi-vendas').textContent   = brl(totVendas);
-  document.getElementById('kpi-receitas').textContent = brl(totReceitas);
-  document.getElementById('kpi-despesas').textContent = brl(totDespesas);
+  document.getElementById('kpi-vendas').textContent   = brl(totV);
+  document.getElementById('kpi-ganho').textContent    = brl(totG);
+  document.getElementById('kpi-taxa').textContent     = brl(totT);
+  document.getElementById('kpi-comissao').textContent = brl(totC);
+  document.getElementById('kpi-receita').textContent  = brl(totR);
+  document.getElementById('kpi-desp-op').textContent  = brl(totO);
+  document.getElementById('kpi-retiradas').textContent= brl(totRet);
 
-  const kpiRes = document.getElementById('kpi-resultado');
-  kpiRes.textContent = brl(totResult);
-  kpiRes.className = 'kpi-value ' + (totResult >= 0 ? 'pos' : 'neg');
-  const subRes = document.getElementById('kpi-resultado-sub');
-  subRes.textContent = totResult >= 0 ? 'lucro' : 'prejuízo';
-  subRes.className = 'kpi-sub ' + (totResult >= 0 ? 'pos' : 'neg');
+  const resEl = document.getElementById('kpi-resultado-big');
+  resEl.textContent = brlFull(totRes);
+  resEl.style.color = totRes >= 0 ? '#1D9E75' : '#D85A30';
+  document.getElementById('kpi-resultado-label').textContent =
+    totRes >= 0 ? '✓ Lucro de caixa acumulado' : '✗ Prejuízo de caixa acumulado';
 
   const gridColor = 'rgba(0,0,0,0.06)';
   const tickColor = 'rgba(0,0,0,0.45)';
@@ -223,9 +281,10 @@ function renderizar(data) {
     data: {
       labels: meses,
       datasets: [
-        { label: 'Vendas',   data: vendas,   backgroundColor: '#378ADD', borderRadius: 3 },
-        { label: 'Receitas', data: receitas, backgroundColor: '#1D9E75', borderRadius: 3 },
-        { label: 'Despesas', data: despesas, backgroundColor: '#D85A30', borderRadius: 3 },
+        { label: 'Vendas brutas',     data: vendas,  backgroundColor: '#378ADD', borderRadius: 3 },
+        { label: 'Receitas caixa',    data: receitas,backgroundColor: '#1D9E75', borderRadius: 3 },
+        { label: 'Desp. operacional', data: despOp,  backgroundColor: '#D85A30', borderRadius: 3 },
+        { label: 'Retiradas sócios',  data: retir,   backgroundColor: '#BA7517', borderRadius: 3 },
       ]
     },
     options: {
@@ -243,12 +302,8 @@ function renderizar(data) {
     type: 'bar',
     data: {
       labels: meses,
-      datasets: [{
-        label: 'Resultado',
-        data: resultado,
-        backgroundColor: resultado.map(v => v >= 0 ? '#1D9E75' : '#D85A30'),
-        borderRadius: 3
-      }]
+      datasets: [{ label: 'Resultado', data: result,
+        backgroundColor: result.map(v => v >= 0 ? '#1D9E75' : '#D85A30'), borderRadius: 3 }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
@@ -260,21 +315,42 @@ function renderizar(data) {
     }
   });
 
-  const maxRec  = data.reduce((a,b) => b.receita > a.receita ? b : a);
-  const maxRes  = data.reduce((a,b) => b.resultado > a.resultado ? b : a);
-  const maxVend = data.reduce((a,b) => b.vendas > a.vendas ? b : a);
-  const minRes  = data.reduce((a,b) => b.resultado < a.resultado ? b : a);
+  // Barras operacional por mês
+  const maxOp = Math.max(...despOp, 1);
+  document.getElementById('bars-op').innerHTML = data.map((d,i) =>
+    d.desp_op > 0 ? `<div class="bar-row">
+      <span class="bar-label">${d.mes}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.desp_op/maxOp*100)}%;background:#D85A30"></div></div>
+      <span class="bar-val">${brl(d.desp_op)}</span>
+    </div>` : '').join('');
+
+  // Barras retiradas por mês
+  const maxRet = Math.max(...retir, 1);
+  const barsRet = data.filter(d => d.retiradas > 0).map(d =>
+    `<div class="bar-row">
+      <span class="bar-label">${d.mes}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.retiradas/maxRet*100)}%;background:#BA7517"></div></div>
+      <span class="bar-val">${brl(d.retiradas)}</span>
+    </div>`).join('');
+  document.getElementById('bars-ret').innerHTML = barsRet || '<p style="font-size:13px;color:#aaa">Nenhuma retirada no período.</p>';
+
+  // Insights automáticos
+  const comDados = data.filter(d => d.receita > 0 || d.vendas > 0);
+  const maxRec  = comDados.length ? comDados.reduce((a,b) => b.receita > a.receita ? b : a) : null;
+  const maxRes  = comDados.length ? comDados.reduce((a,b) => b.resultado > a.resultado ? b : a) : null;
+  const maxVend = comDados.length ? comDados.reduce((a,b) => b.vendas > a.vendas ? b : a) : null;
+  const minRes  = comDados.length ? comDados.reduce((a,b) => b.resultado < a.resultado ? b : a) : null;
   const mesesPos = data.filter(d => d.resultado > 0).length;
   const mesesNeg = data.filter(d => d.resultado < 0).length;
 
   const insights = [
-    { label: 'Maior receita de caixa',   mes: maxRec.mes,  val: brlFull(maxRec.receita),   cor: '#1D9E75', obs: 'Mês com maior entrada real de dinheiro na conta.' },
-    { label: 'Melhor resultado líquido', mes: maxRes.mes,  val: brlFull(maxRes.resultado),  cor: '#1D9E75', obs: 'Melhor equilíbrio entre receita e despesa.' },
-    { label: 'Maior volume de vendas',   mes: maxVend.mes, val: brlFull(maxVend.vendas),    cor: '#378ADD', obs: 'Lembre: vendas viram caixa 30 dias depois (Eduzz).' },
-    { label: 'Pior resultado',           mes: minRes.mes,  val: brlFull(minRes.resultado),  cor: '#D85A30', obs: 'Mês com maior desequilíbrio entre entrada e saída.' },
-    { label: 'Meses no lucro',           mes: mesesPos + ' de ' + data.length, val: '', cor: '#1D9E75', obs: 'Quantidade de meses com resultado positivo.' },
-    { label: 'Meses no prejuízo',        mes: mesesNeg + ' de ' + data.length, val: '', cor: '#D85A30', obs: 'Quantidade de meses com resultado negativo.' },
-  ];
+    maxRec  ? { label: 'Maior receita de caixa',   mes: maxRec.mes,  val: brlFull(maxRec.receita),   cor: '#1D9E75', obs: 'Mês com maior entrada real na conta.' } : null,
+    maxRes  ? { label: 'Melhor resultado',          mes: maxRes.mes,  val: brlFull(maxRes.resultado),  cor: '#1D9E75', obs: 'Melhor equilíbrio entre receita e saídas.' } : null,
+    maxVend ? { label: 'Maior volume de vendas',    mes: maxVend.mes, val: brlFull(maxVend.vendas),    cor: '#378ADD', obs: 'Vendas viram caixa 30 dias depois (Eduzz).' } : null,
+    minRes  ? { label: 'Pior resultado',            mes: minRes.mes,  val: brlFull(minRes.resultado),  cor: '#D85A30', obs: 'Maior desequilíbrio entre entrada e saídas.' } : null,
+    { label: 'Meses no lucro',    mes: mesesPos + ' de ' + data.length, val: '', cor: '#1D9E75', obs: 'Meses com resultado positivo.' },
+    { label: 'Meses no prejuízo', mes: mesesNeg + ' de ' + data.length, val: '', cor: '#D85A30', obs: 'Meses com resultado negativo.' },
+  ].filter(Boolean);
 
   document.getElementById('insights').innerHTML = insights.map(ins => `
     <div class="insight-card">
@@ -285,13 +361,12 @@ function renderizar(data) {
 
   const agora = new Date().toLocaleString('pt-BR');
   document.getElementById('status').textContent = 'Atualizado em ' + agora;
-  document.getElementById('footer-txt').textContent = 'CNIS Revelado · Dados atualizados em ' + agora + ' · Uso interno';
+  document.getElementById('footer-txt').textContent = 'CNIS Revelado · Atualizado em ' + agora + ' · Uso interno';
   document.getElementById('loading').classList.add('hidden');
   document.getElementById('conteudo').classList.remove('hidden');
 }
 
 carregarDados();
 </script>
-
 </body>
 </html>
