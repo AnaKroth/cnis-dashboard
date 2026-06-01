@@ -7,69 +7,110 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f5f3; color: #1a1a1a; min-height: 100vh; }
-header { background: #1F3864; color: #fff; padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-header h1 { font-size: 18px; font-weight: 500; }
+
+/* CABEÇALHO */
+header { background: #1F3864; color: #fff; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.header-left { display: flex; flex-direction: column; gap: 2px; }
+.header-empresa { font-size: 16px; font-weight: 600; letter-spacing: 0.01em; }
+.header-cnpj { font-size: 11px; opacity: 0.7; }
+.header-end { font-size: 11px; opacity: 0.6; }
 .header-right { display: flex; align-items: center; gap: 12px; }
 #status { font-size: 12px; opacity: 0.7; }
 #btn-refresh { background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.3); color: #fff; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; }
 #btn-refresh:hover { background: rgba(255,255,255,0.25); }
 
-#filtro-bar { background: #fff; border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 0.75rem 2rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-#filtro-bar label { font-size: 13px; color: #666; font-weight: 500; }
-#filtro-meses { display: flex; gap: 8px; flex-wrap: wrap; }
-.btn-mes { padding: 5px 12px; font-size: 12px; border-radius: 20px; cursor: pointer; border: 0.5px solid rgba(0,0,0,0.15); background: #fff; color: #444; transition: all 0.15s; }
+/* FILTRO MESES */
+#filtro-bar { background: #fff; border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 0.6rem 2rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+#filtro-bar label { font-size: 12px; color: #666; font-weight: 500; white-space: nowrap; }
+#filtro-meses { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn-mes { padding: 4px 10px; font-size: 11px; border-radius: 20px; cursor: pointer; border: 0.5px solid rgba(0,0,0,0.15); background: #fff; color: #444; transition: all 0.15s; }
 .btn-mes.ativo { background: #1F3864; color: #fff; border-color: #1F3864; }
 
-main { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem; }
+main { max-width: 1000px; margin: 0 auto; padding: 1.5rem; }
 .loading { text-align: center; padding: 4rem; color: #aaa; font-size: 14px; }
 .error-box { background: #fff3f0; border: 1px solid #f0c0b0; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
 .error-box h3 { color: #D85A30; font-size: 14px; margin-bottom: 8px; }
 .error-box p { font-size: 13px; color: #666; line-height: 1.6; }
-.error-box code { background: #f5f5f3; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
 
-.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1rem; }
-.kpis2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
-.kpi { background: #fff; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1rem 1.25rem; }
-.kpi-label { font-size: 12px; color: #888; margin-bottom: 4px; }
-.kpi-value { font-size: 22px; font-weight: 500; color: #1a1a1a; }
-.kpi-sub { font-size: 12px; color: #aaa; margin-top: 4px; }
-.pos { color: #1D9E75; }
-.neg { color: #D85A30; }
+/* KPIS */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px; }
+.kpis2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+.kpi { background: #fff; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); padding: 0.9rem 1.1rem; }
+.kpi-label { font-size: 11px; color: #888; margin-bottom: 3px; }
+.kpi-value { font-size: 20px; font-weight: 500; color: #1a1a1a; }
+.kpi-sub { font-size: 11px; color: #aaa; margin-top: 3px; }
+.pos { color: #1D9E75; } .neg { color: #D85A30; }
 
-.section { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
+/* RESULTADO DESTAQUE */
+.resultado-box { background: #fff; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1rem 1.5rem; margin-bottom: 10px; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.resultado-valor { font-size: 32px; font-weight: 500; }
+.resultado-label { font-size: 13px; color: #888; }
+
+/* SECTIONS */
+.section { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; }
 .sec-title { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
-.legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; font-size: 12px; color: #666; }
-.leg-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 5px; vertical-align: middle; }
-
-.insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.insight-card { background: #f9f9f7; border-radius: 8px; padding: 1rem; }
-.ins-label { font-size: 11px; color: #999; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
-.ins-month { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-.ins-value { font-size: 13px; color: #666; line-height: 1.5; }
-
-.desp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.bar-label { font-size: 12px; color: #666; width: 160px; flex-shrink: 0; text-align: right; }
-.bar-track { flex: 1; background: #f0f0ee; border-radius: 4px; height: 8px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 4px; }
-.bar-val { font-size: 12px; color: #666; width: 80px; flex-shrink: 0; }
-
-.nota { font-size: 12px; color: #aaa; margin-top: 1rem; text-align: center; font-style: italic; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; font-size: 12px; color: #666; }
+.leg-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
 .chart-wrap { position: relative; width: 100%; }
-footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
+.nota { font-size: 11px; color: #aaa; margin-top: 0.75rem; text-align: center; font-style: italic; }
+
+/* PRODUTOS */
+.prod-filtros { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+.prod-filtros label { font-size: 12px; color: #666; font-weight: 500; }
+.sel-periodo { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sel-periodo select { padding: 4px 8px; font-size: 12px; border: 0.5px solid rgba(0,0,0,0.2); border-radius: 6px; background: #fff; color: #444; cursor: pointer; }
+.sel-periodo span { font-size: 12px; color: #888; }
+.btn-aplicar { padding: 4px 14px; font-size: 12px; border-radius: 6px; cursor: pointer; border: none; background: #1F3864; color: #fff; }
+
+/* BARRAS PRODUTOS */
+.prod-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer; border-radius: 6px; padding: 4px 6px; transition: background 0.1s; }
+.prod-bar-row:hover { background: #f5f5f3; }
+.prod-bar-label { font-size: 12px; color: #444; width: 150px; flex-shrink: 0; text-align: right; }
+.prod-bar-track { flex: 1; background: #f0f0ee; border-radius: 4px; height: 10px; overflow: hidden; }
+.prod-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }
+.prod-bar-info { font-size: 11px; color: #888; width: 130px; flex-shrink: 0; }
+
+/* DETALHE PRODUTO */
+.prod-detalhe { background: #f9f9f7; border-radius: 8px; padding: 1rem; margin-top: 1rem; display: none; }
+.prod-detalhe h4 { font-size: 13px; font-weight: 500; color: #1F3864; margin-bottom: 8px; }
+.prod-meses { display: flex; flex-wrap: wrap; gap: 8px; }
+.prod-mes-tag { background: #fff; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #444; }
+.prod-mes-tag span { color: #1D9E75; font-weight: 500; margin-left: 4px; }
+
+/* INSIGHTS */
+.insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.insight-card { background: #f9f9f7; border-radius: 8px; padding: 0.9rem; }
+.ins-label { font-size: 11px; color: #999; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+.ins-month { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+.ins-value { font-size: 12px; color: #666; line-height: 1.5; }
+
+/* DESPESAS */
+.desp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.bar-label { font-size: 11px; color: #666; width: 60px; flex-shrink: 0; text-align: right; }
+.bar-track { flex: 1; background: #f0f0ee; border-radius: 4px; height: 7px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; }
+.bar-val { font-size: 11px; color: #666; width: 70px; flex-shrink: 0; }
+
+footer { text-align: center; padding: 1.5rem; font-size: 11px; color: #bbb; }
 .hidden { display: none; }
 
 @media (max-width: 640px) {
   .kpis, .kpis2 { grid-template-columns: repeat(2, 1fr); }
   .insight-grid, .desp-grid { grid-template-columns: 1fr; }
-  .bar-label { width: 100px; font-size: 11px; }
+  .prod-bar-label { width: 90px; font-size: 11px; }
+  .header-empresa { font-size: 13px; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>CNIS Revelado — Dashboard Financeiro</h1>
+  <div class="header-left">
+    <div class="header-empresa">DMS – Instituto de Inteligência Previdenciária Ltda</div>
+    <div class="header-cnpj">CNPJ 61.965.627/0001-71</div>
+    <div class="header-end">QNO 17 Conjunto 57, Lt 02, Ceilândia Norte — Brasília/DF — CEP 72260-757</div>
+  </div>
   <div class="header-right">
     <span id="status">Carregando...</span>
     <button id="btn-refresh" onclick="carregarDados()">↻ Atualizar</button>
@@ -83,98 +124,73 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
 
 <main>
   <div id="loading" class="loading">Buscando dados da planilha...</div>
-
   <div id="error-box" class="error-box hidden">
     <h3>⚠ Não foi possível carregar os dados</h3>
     <p id="error-msg"></p>
-    <p style="margin-top:8px">Verifique se a URL do script está correta e se a implantação permite acesso a <code>Qualquer pessoa</code>.</p>
   </div>
 
   <div id="conteudo" class="hidden">
 
-    <!-- KPIs linha 1: Vendas -->
     <div class="kpis">
-      <div class="kpi">
-        <div class="kpi-label">Total vendido (bruto)</div>
-        <div class="kpi-value" id="kpi-vendas">—</div>
-        <div class="kpi-sub">acumulado</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Ganho líquido vendas</div>
-        <div class="kpi-value" id="kpi-ganho">—</div>
-        <div class="kpi-sub">após taxa e comissão</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Taxa plataforma</div>
-        <div class="kpi-value neg" id="kpi-taxa">—</div>
-        <div class="kpi-sub">acumulado</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Comissão Ana</div>
-        <div class="kpi-value" id="kpi-comissao">—</div>
-        <div class="kpi-sub">acumulado</div>
-      </div>
+      <div class="kpi"><div class="kpi-label">Total vendido (bruto)</div><div class="kpi-value" id="kpi-vendas">—</div><div class="kpi-sub">acumulado</div></div>
+      <div class="kpi"><div class="kpi-label">Ganho líquido vendas</div><div class="kpi-value" id="kpi-ganho">—</div><div class="kpi-sub">após taxa e comissão</div></div>
+      <div class="kpi"><div class="kpi-label">Taxa plataforma</div><div class="kpi-value neg" id="kpi-taxa">—</div><div class="kpi-sub">acumulado</div></div>
+      <div class="kpi"><div class="kpi-label">Comissão Ana</div><div class="kpi-value" id="kpi-comissao">—</div><div class="kpi-sub">acumulado</div></div>
     </div>
 
-    <!-- KPIs linha 2: Caixa -->
     <div class="kpis2">
-      <div class="kpi">
-        <div class="kpi-label">Receitas de caixa</div>
-        <div class="kpi-value pos" id="kpi-receita">—</div>
-        <div class="kpi-sub">dinheiro recebido</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Despesas operacionais</div>
-        <div class="kpi-value neg" id="kpi-desp-op">—</div>
-        <div class="kpi-sub">custo do negócio</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Retiradas sócios</div>
-        <div class="kpi-value neg" id="kpi-retiradas">—</div>
-        <div class="kpi-sub">acumulado</div>
-      </div>
+      <div class="kpi"><div class="kpi-label">Receitas de caixa</div><div class="kpi-value pos" id="kpi-receita">—</div><div class="kpi-sub">dinheiro recebido</div></div>
+      <div class="kpi"><div class="kpi-label">Despesas operacionais</div><div class="kpi-value neg" id="kpi-desp-op">—</div><div class="kpi-sub">custo do negócio</div></div>
+      <div class="kpi"><div class="kpi-label">Retiradas sócios</div><div class="kpi-value neg" id="kpi-retiradas">—</div><div class="kpi-sub">acumulado</div></div>
+    </div>
+
+    <div class="resultado-box">
+      <div><div class="resultado-label">Resultado de caixa</div><div class="resultado-valor" id="kpi-resultado-big">—</div></div>
+      <div class="resultado-label" id="kpi-resultado-label" style="font-size:14px">—</div>
     </div>
 
     <div class="section">
-      <div class="sec-title">Resultado de caixa</div>
-      <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-        <div style="font-size:36px; font-weight:500;" id="kpi-resultado-big">—</div>
-        <div style="font-size:13px; color:#888;" id="kpi-resultado-label">—</div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="sec-title">Vendas × Receitas × Despesas por mês</div>
+      <div class="sec-title">Vendas × Receitas × Despesas × Retiradas por mês</div>
       <div class="legend">
         <span><span class="leg-dot" style="background:#378ADD"></span>Vendas brutas</span>
         <span><span class="leg-dot" style="background:#1D9E75"></span>Receitas caixa</span>
         <span><span class="leg-dot" style="background:#D85A30"></span>Desp. operacional</span>
         <span><span class="leg-dot" style="background:#BA7517"></span>Retiradas sócios</span>
       </div>
-      <div class="chart-wrap" style="height:300px;">
-        <canvas id="c1"></canvas>
-      </div>
+      <div class="chart-wrap" style="height:290px;"><canvas id="c1"></canvas></div>
       <p class="nota">Receitas em regime de caixa (D+30 Eduzz).</p>
     </div>
 
     <div class="section">
       <div class="sec-title">Resultado de caixa por mês</div>
-      <div class="chart-wrap" style="height:240px;">
-        <canvas id="c2"></canvas>
+      <div class="chart-wrap" style="height:220px;"><canvas id="c2"></canvas></div>
+    </div>
+
+    <div class="section">
+      <div class="sec-title">Produtos mais vendidos</div>
+      <div class="prod-filtros">
+        <label>Período:</label>
+        <div class="sel-periodo">
+          <span>De</span>
+          <select id="prod-de"></select>
+          <span>até</span>
+          <select id="prod-ate"></select>
+          <button class="btn-aplicar" onclick="aplicarFiltroProdutos()">Aplicar</button>
+          <button class="btn-aplicar" style="background:#888" onclick="limparFiltroProdutos()">Todos</button>
+        </div>
+      </div>
+      <div id="prod-bars"></div>
+      <div id="prod-detalhe" class="prod-detalhe">
+        <h4 id="prod-detalhe-nome"></h4>
+        <div class="prod-meses" id="prod-detalhe-meses"></div>
       </div>
     </div>
 
     <div class="section">
-      <div class="sec-title">Despesas operacionais vs Retiradas</div>
+      <div class="sec-title">Despesas operacionais vs Retiradas por mês</div>
       <div class="desp-grid">
-        <div>
-          <div style="font-size:12px; color:#888; margin-bottom:10px;">Despesas Operacionais</div>
-          <div id="bars-op"></div>
-        </div>
-        <div>
-          <div style="font-size:12px; color:#888; margin-bottom:10px;">Retiradas por Mês</div>
-          <div id="bars-ret"></div>
-        </div>
+        <div><div style="font-size:11px;color:#888;margin-bottom:8px">Despesas Operacionais</div><div id="bars-op"></div></div>
+        <div><div style="font-size:11px;color:#888;margin-bottom:8px">Retiradas por Mês</div><div id="bars-ret"></div></div>
       </div>
     </div>
 
@@ -186,184 +202,233 @@ footer { text-align: center; padding: 2rem; font-size: 12px; color: #bbb; }
   </div>
 </main>
 
-<footer id="footer-txt">CNIS Revelado &nbsp;·&nbsp; Uso interno</footer>
+<footer id="footer-txt">DMS – Instituto de Inteligência Previdenciária Ltda &nbsp;·&nbsp; Uso interno</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycby_TqbjIhIe3L-es6X260GrkPdYazoG-rUS1lNImBwFzRWBsheMdbZBDYahSjYKih4A/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzLoTUBhKbOmtG3JQh8syU8nQCtCA2eQv2mQt-hDU9rkd6VGlbn5eITDb453-Ffxj_X/exec';
 
 let dadosCompletos = [];
+let produtosCompletos = [];
 let mesSelecionado = 'todos';
+let prodDetalheAtivo = null;
 let chart1 = null, chart2 = null;
+
+const CORES_PROD = ['#378ADD','#1D9E75','#D85A30','#BA7517','#534AB7','#888780',
+                    '#9FE1CB','#F4A261','#E76F51','#264653','#2A9D8F','#E9C46A','#F4A261','#A8DADC'];
 
 const brl = v => {
   const abs = Math.abs(v);
-  const s = abs >= 1000 ? 'R$ ' + (abs/1000).toFixed(1) + 'k' : 'R$ ' + Math.round(abs).toLocaleString('pt-BR');
-  return (v < 0 ? '-' : '') + s;
+  const s = abs >= 1000 ? 'R$ '+(abs/1000).toFixed(1)+'k' : 'R$ '+Math.round(abs).toLocaleString('pt-BR');
+  return (v<0?'-':'')+s;
 };
-const brlFull = v => (v < 0 ? '-R$ ' : 'R$ ') + Math.abs(v).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+const brlFull = v => (v<0?'-R$ ':'R$ ')+Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const sum = arr => arr.reduce((a,b)=>a+b,0);
 
 async function carregarDados() {
   document.getElementById('status').textContent = 'Atualizando...';
   document.getElementById('loading').classList.remove('hidden');
   document.getElementById('conteudo').classList.add('hidden');
   document.getElementById('error-box').classList.add('hidden');
-
   try {
     const res = await fetch(SHEET_URL);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    if (!Array.isArray(data) || data.length === 0) throw new Error('Nenhum dado encontrado.');
-    dadosCompletos = data;
+    if (!res.ok) throw new Error('HTTP '+res.status);
+    const json = await res.json();
+    dadosCompletos  = json.meses    || [];
+    produtosCompletos = json.produtos || [];
+    if (!dadosCompletos.length) throw new Error('Nenhum dado encontrado.');
+    popularSelects();
     renderFiltros();
-    renderizar(data);
+    renderizar(dadosCompletos);
+    renderProdutos(produtosCompletos);
   } catch(e) {
     document.getElementById('loading').classList.add('hidden');
-    document.getElementById('error-msg').textContent = 'Erro: ' + e.message;
+    document.getElementById('error-msg').textContent = 'Erro: '+e.message;
     document.getElementById('error-box').classList.remove('hidden');
     document.getElementById('status').textContent = 'Erro';
   }
 }
 
+function popularSelects() {
+  const meses = dadosCompletos.map(d=>d.mes);
+  ['prod-de','prod-ate'].forEach((id,idx) => {
+    const sel = document.getElementById(id);
+    sel.innerHTML = meses.map((m,i)=>`<option value="${m}" ${i===(idx===0?0:meses.length-1)?'selected':''}>${m}</option>`).join('');
+  });
+}
+
 function renderFiltros() {
   const container = document.getElementById('filtro-meses');
-  const meses = ['todos', ...dadosCompletos.map(d => d.mes)];
-  container.innerHTML = meses.map(m => `
-    <button class="btn-mes ${m === mesSelecionado ? 'ativo' : ''}" onclick="filtrarMes('${m}')">
-      ${m === 'todos' ? 'Todos os meses' : m}
-    </button>`).join('');
+  const meses = ['todos',...dadosCompletos.map(d=>d.mes)];
+  container.innerHTML = meses.map(m=>
+    `<button class="btn-mes ${m===mesSelecionado?'ativo':''}" onclick="filtrarMes('${m}')">${m==='todos'?'Todos':m}</button>`
+  ).join('');
 }
 
 function filtrarMes(mes) {
   mesSelecionado = mes;
   renderFiltros();
-  const dados = mes === 'todos' ? dadosCompletos : dadosCompletos.filter(d => d.mes === mes);
+  const dados = mes==='todos' ? dadosCompletos : dadosCompletos.filter(d=>d.mes===mes);
   renderizar(dados);
 }
 
 function renderizar(data) {
-  const meses    = data.map(d => d.mes);
-  const vendas   = data.map(d => d.vendas);
-  const ganho    = data.map(d => d.ganho_liq);
-  const taxas    = data.map(d => d.taxa);
-  const comiss   = data.map(d => d.comissao);
-  const receitas = data.map(d => d.receita);
-  const despOp   = data.map(d => d.desp_op);
-  const retir    = data.map(d => d.retiradas);
-  const result   = data.map(d => d.resultado);
+  const meses    = data.map(d=>d.mes);
+  const vendas   = data.map(d=>d.vendas);
+  const ganho    = data.map(d=>d.ganho_liq);
+  const taxas    = data.map(d=>d.taxa);
+  const comiss   = data.map(d=>d.comissao);
+  const receitas = data.map(d=>d.receita);
+  const despOp   = data.map(d=>d.desp_op);
+  const retir    = data.map(d=>d.retiradas);
+  const result   = data.map(d=>d.resultado);
 
-  const sum = arr => arr.reduce((a,b) => a+b, 0);
-  const totV  = sum(vendas);  const totG = sum(ganho);
-  const totT  = sum(taxas);   const totC = sum(comiss);
-  const totR  = sum(receitas); const totO = sum(despOp);
-  const totRet= sum(retir);   const totRes= sum(result);
+  document.getElementById('kpi-vendas').textContent   = brl(sum(vendas));
+  document.getElementById('kpi-ganho').textContent    = brl(sum(ganho));
+  document.getElementById('kpi-taxa').textContent     = brl(sum(taxas));
+  document.getElementById('kpi-comissao').textContent = brl(sum(comiss));
+  document.getElementById('kpi-receita').textContent  = brl(sum(receitas));
+  document.getElementById('kpi-desp-op').textContent  = brl(sum(despOp));
+  document.getElementById('kpi-retiradas').textContent= brl(sum(retir));
 
-  document.getElementById('kpi-vendas').textContent   = brl(totV);
-  document.getElementById('kpi-ganho').textContent    = brl(totG);
-  document.getElementById('kpi-taxa').textContent     = brl(totT);
-  document.getElementById('kpi-comissao').textContent = brl(totC);
-  document.getElementById('kpi-receita').textContent  = brl(totR);
-  document.getElementById('kpi-desp-op').textContent  = brl(totO);
-  document.getElementById('kpi-retiradas').textContent= brl(totRet);
-
-  const resEl = document.getElementById('kpi-resultado-big');
+  const totRes = sum(result);
+  const resEl  = document.getElementById('kpi-resultado-big');
   resEl.textContent = brlFull(totRes);
-  resEl.style.color = totRes >= 0 ? '#1D9E75' : '#D85A30';
+  resEl.style.color = totRes>=0?'#1D9E75':'#D85A30';
   document.getElementById('kpi-resultado-label').textContent =
-    totRes >= 0 ? '✓ Lucro de caixa acumulado' : '✗ Prejuízo de caixa acumulado';
+    totRes>=0 ? '✓ Lucro de caixa acumulado' : '✗ Prejuízo de caixa acumulado';
 
-  const gridColor = 'rgba(0,0,0,0.06)';
-  const tickColor = 'rgba(0,0,0,0.45)';
-
-  if (chart1) chart1.destroy();
-  chart1 = new Chart(document.getElementById('c1'), {
-    type: 'bar',
-    data: {
-      labels: meses,
-      datasets: [
-        { label: 'Vendas brutas',     data: vendas,  backgroundColor: '#378ADD', borderRadius: 3 },
-        { label: 'Receitas caixa',    data: receitas,backgroundColor: '#1D9E75', borderRadius: 3 },
-        { label: 'Desp. operacional', data: despOp,  backgroundColor: '#D85A30', borderRadius: 3 },
-        { label: 'Retiradas sócios',  data: retir,   backgroundColor: '#BA7517', borderRadius: 3 },
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + brl(ctx.raw) } } },
-      scales: {
-        x: { ticks: { color: tickColor, font:{size:11}, autoSkip: false, maxRotation: 0 }, grid: { color: gridColor } },
-        y: { ticks: { color: tickColor, font:{size:11}, callback: v => brl(v) }, grid: { color: gridColor } }
-      }
-    }
+  const gc='rgba(0,0,0,0.06)', tc='rgba(0,0,0,0.45)';
+  if(chart1) chart1.destroy();
+  chart1 = new Chart(document.getElementById('c1'),{
+    type:'bar',
+    data:{labels:meses,datasets:[
+      {label:'Vendas brutas',    data:vendas,  backgroundColor:'#378ADD',borderRadius:3},
+      {label:'Receitas caixa',   data:receitas,backgroundColor:'#1D9E75',borderRadius:3},
+      {label:'Desp. operacional',data:despOp,  backgroundColor:'#D85A30',borderRadius:3},
+      {label:'Retiradas sócios', data:retir,   backgroundColor:'#BA7517',borderRadius:3},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+brl(ctx.raw)}}},
+      scales:{x:{ticks:{color:tc,font:{size:11},autoSkip:false,maxRotation:0},grid:{color:gc}},
+              y:{ticks:{color:tc,font:{size:11},callback:v=>brl(v)},grid:{color:gc}}}}
   });
 
-  if (chart2) chart2.destroy();
-  chart2 = new Chart(document.getElementById('c2'), {
-    type: 'bar',
-    data: {
-      labels: meses,
-      datasets: [{ label: 'Resultado', data: result,
-        backgroundColor: result.map(v => v >= 0 ? '#1D9E75' : '#D85A30'), borderRadius: 3 }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + brl(ctx.raw) } } },
-      scales: {
-        x: { ticks: { color: tickColor, font:{size:11}, autoSkip: false, maxRotation: 0 }, grid: { color: gridColor } },
-        y: { ticks: { color: tickColor, font:{size:11}, callback: v => brl(v) }, grid: { color: gridColor } }
-      }
-    }
+  if(chart2) chart2.destroy();
+  chart2 = new Chart(document.getElementById('c2'),{
+    type:'bar',
+    data:{labels:meses,datasets:[{label:'Resultado',data:result,
+      backgroundColor:result.map(v=>v>=0?'#1D9E75':'#D85A30'),borderRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+brl(ctx.raw)}}},
+      scales:{x:{ticks:{color:tc,font:{size:11},autoSkip:false,maxRotation:0},grid:{color:gc}},
+              y:{ticks:{color:tc,font:{size:11},callback:v=>brl(v)},grid:{color:gc}}}}
   });
 
-  // Barras operacional por mês
-  const maxOp = Math.max(...despOp, 1);
-  document.getElementById('bars-op').innerHTML = data.map((d,i) =>
-    d.desp_op > 0 ? `<div class="bar-row">
+  // Barras despesas/retiradas
+  const maxOp  = Math.max(...despOp,1);
+  document.getElementById('bars-op').innerHTML = data
+    .filter(d=>d.desp_op>0)
+    .map(d=>`<div class="bar-row">
       <span class="bar-label">${d.mes}</span>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.desp_op/maxOp*100)}%;background:#D85A30"></div></div>
-      <span class="bar-val">${brl(d.desp_op)}</span>
-    </div>` : '').join('');
+      <span class="bar-val">${brl(d.desp_op)}</span></div>`).join('') || '<p style="font-size:12px;color:#aaa">Sem dados.</p>';
 
-  // Barras retiradas por mês
-  const maxRet = Math.max(...retir, 1);
-  const barsRet = data.filter(d => d.retiradas > 0).map(d =>
-    `<div class="bar-row">
+  const maxRet = Math.max(...retir,1);
+  document.getElementById('bars-ret').innerHTML = data
+    .filter(d=>d.retiradas>0)
+    .map(d=>`<div class="bar-row">
       <span class="bar-label">${d.mes}</span>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.retiradas/maxRet*100)}%;background:#BA7517"></div></div>
-      <span class="bar-val">${brl(d.retiradas)}</span>
-    </div>`).join('');
-  document.getElementById('bars-ret').innerHTML = barsRet || '<p style="font-size:13px;color:#aaa">Nenhuma retirada no período.</p>';
+      <span class="bar-val">${brl(d.retiradas)}</span></div>`).join('') || '<p style="font-size:12px;color:#aaa">Nenhuma retirada.</p>';
 
-  // Insights automáticos
-  const comDados = data.filter(d => d.receita > 0 || d.vendas > 0);
-  const maxRec  = comDados.length ? comDados.reduce((a,b) => b.receita > a.receita ? b : a) : null;
-  const maxRes  = comDados.length ? comDados.reduce((a,b) => b.resultado > a.resultado ? b : a) : null;
-  const maxVend = comDados.length ? comDados.reduce((a,b) => b.vendas > a.vendas ? b : a) : null;
-  const minRes  = comDados.length ? comDados.reduce((a,b) => b.resultado < a.resultado ? b : a) : null;
-  const mesesPos = data.filter(d => d.resultado > 0).length;
-  const mesesNeg = data.filter(d => d.resultado < 0).length;
-
-  const insights = [
-    maxRec  ? { label: 'Maior receita de caixa',   mes: maxRec.mes,  val: brlFull(maxRec.receita),   cor: '#1D9E75', obs: 'Mês com maior entrada real na conta.' } : null,
-    maxRes  ? { label: 'Melhor resultado',          mes: maxRes.mes,  val: brlFull(maxRes.resultado),  cor: '#1D9E75', obs: 'Melhor equilíbrio entre receita e saídas.' } : null,
-    maxVend ? { label: 'Maior volume de vendas',    mes: maxVend.mes, val: brlFull(maxVend.vendas),    cor: '#378ADD', obs: 'Vendas viram caixa 30 dias depois (Eduzz).' } : null,
-    minRes  ? { label: 'Pior resultado',            mes: minRes.mes,  val: brlFull(minRes.resultado),  cor: '#D85A30', obs: 'Maior desequilíbrio entre entrada e saídas.' } : null,
-    { label: 'Meses no lucro',    mes: mesesPos + ' de ' + data.length, val: '', cor: '#1D9E75', obs: 'Meses com resultado positivo.' },
-    { label: 'Meses no prejuízo', mes: mesesNeg + ' de ' + data.length, val: '', cor: '#D85A30', obs: 'Meses com resultado negativo.' },
-  ].filter(Boolean);
-
-  document.getElementById('insights').innerHTML = insights.map(ins => `
+  // Insights
+  const comDados = data.filter(d=>d.receita>0||d.vendas>0);
+  const insights = [];
+  if(comDados.length){
+    const maxRec  = comDados.reduce((a,b)=>b.receita>a.receita?b:a);
+    const maxRes  = comDados.reduce((a,b)=>b.resultado>a.resultado?b:a);
+    const maxVend = comDados.reduce((a,b)=>b.vendas>a.vendas?b:a);
+    const minRes  = comDados.reduce((a,b)=>b.resultado<a.resultado?b:a);
+    insights.push(
+      {label:'Maior receita de caixa',  mes:maxRec.mes,  val:brlFull(maxRec.receita),   cor:'#1D9E75',obs:'Mês com maior entrada real na conta.'},
+      {label:'Melhor resultado',         mes:maxRes.mes,  val:brlFull(maxRes.resultado),  cor:'#1D9E75',obs:'Melhor equilíbrio entre receita e saídas.'},
+      {label:'Maior volume de vendas',   mes:maxVend.mes, val:brlFull(maxVend.vendas),    cor:'#378ADD',obs:'Vendas viram caixa 30 dias depois (Eduzz).'},
+      {label:'Pior resultado',           mes:minRes.mes,  val:brlFull(minRes.resultado),  cor:'#D85A30',obs:'Maior desequilíbrio entre entrada e saídas.'},
+    );
+  }
+  const mesesPos = data.filter(d=>d.resultado>0).length;
+  const mesesNeg = data.filter(d=>d.resultado<0).length;
+  insights.push(
+    {label:'Meses no lucro',    mes:mesesPos+' de '+data.length, val:'', cor:'#1D9E75', obs:'Meses com resultado positivo.'},
+    {label:'Meses no prejuízo', mes:mesesNeg+' de '+data.length, val:'', cor:'#D85A30', obs:'Meses com resultado negativo.'},
+  );
+  document.getElementById('insights').innerHTML = insights.map(ins=>`
     <div class="insight-card">
       <div class="ins-label">${ins.label}</div>
-      <div class="ins-month" style="color:${ins.cor}">${ins.mes}${ins.val ? ' — ' + ins.val : ''}</div>
+      <div class="ins-month" style="color:${ins.cor};font-size:14px;font-weight:500;margin-bottom:3px">${ins.mes}${ins.val?' — '+ins.val:''}</div>
       <div class="ins-value">${ins.obs}</div>
     </div>`).join('');
 
   const agora = new Date().toLocaleString('pt-BR');
-  document.getElementById('status').textContent = 'Atualizado em ' + agora;
-  document.getElementById('footer-txt').textContent = 'CNIS Revelado · Atualizado em ' + agora + ' · Uso interno';
+  document.getElementById('status').textContent = 'Atualizado em '+agora;
+  document.getElementById('footer-txt').textContent = 'DMS – Instituto de Inteligência Previdenciária Ltda · Atualizado em '+agora+' · Uso interno';
   document.getElementById('loading').classList.add('hidden');
   document.getElementById('conteudo').classList.remove('hidden');
+}
+
+function renderProdutos(prods) {
+  if(!prods.length){
+    document.getElementById('prod-bars').innerHTML = '<p style="font-size:12px;color:#aaa">Sem dados de produtos.</p>';
+    return;
+  }
+  const maxVal = Math.max(...prods.map(p=>p.total),1);
+  document.getElementById('prod-bars').innerHTML = prods.map((p,i)=>`
+    <div class="prod-bar-row" onclick="toggleDetalhe('${p.apelido.replace(/'/g,"\\'")}')">
+      <span class="prod-bar-label">${p.apelido}</span>
+      <div class="prod-bar-track">
+        <div class="prod-bar-fill" style="width:${Math.round(p.total/maxVal*100)}%;background:${CORES_PROD[i%CORES_PROD.length]}"></div>
+      </div>
+      <span class="prod-bar-info">${brl(p.total)} &nbsp;·&nbsp; ${p.qtd}x</span>
+    </div>`).join('');
+}
+
+function toggleDetalhe(apelido) {
+  const prod = produtosCompletos.find(p=>p.apelido===apelido);
+  const box  = document.getElementById('prod-detalhe');
+  if(prodDetalheAtivo===apelido){ box.style.display='none'; prodDetalheAtivo=null; return; }
+  prodDetalheAtivo = apelido;
+  document.getElementById('prod-detalhe-nome').textContent = apelido+' — vendas por mês';
+  document.getElementById('prod-detalhe-meses').innerHTML = prod.meses.map(m=>
+    `<div class="prod-mes-tag">${m.mes}<span>${brl(m.val)}</span></div>`).join('');
+  box.style.display='block';
+}
+
+function aplicarFiltroProdutos() {
+  const de  = document.getElementById('prod-de').value;
+  const ate = document.getElementById('prod-ate').value;
+  const todosMeses = dadosCompletos.map(d=>d.mes);
+  const idxDe  = todosMeses.indexOf(de);
+  const idxAte = todosMeses.indexOf(ate);
+  const mesesFiltro = todosMeses.slice(Math.min(idxDe,idxAte), Math.max(idxDe,idxAte)+1);
+
+  const filtrados = produtosCompletos.map(p=>({
+    ...p,
+    total: p.meses.filter(m=>mesesFiltro.includes(m.mes)).reduce((a,m)=>a+m.val,0),
+    qtd:   p.meses.filter(m=>mesesFiltro.includes(m.mes)).reduce((a,m)=>a+1,0),
+    meses: p.meses.filter(m=>mesesFiltro.includes(m.mes))
+  })).filter(p=>p.total>0).sort((a,b)=>b.total-a.total);
+
+  renderProdutos(filtrados);
+  document.getElementById('prod-detalhe').style.display='none';
+  prodDetalheAtivo=null;
+}
+
+function limparFiltroProdutos() {
+  popularSelects();
+  renderProdutos(produtosCompletos);
+  document.getElementById('prod-detalhe').style.display='none';
+  prodDetalheAtivo=null;
 }
 
 carregarDados();
