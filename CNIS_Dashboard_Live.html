@@ -9,7 +9,7 @@
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f5f5f3; color: #1a1a1a; min-height: 100vh; }
 
 /* CABEÇALHO */
-header { background: #1F3864; color: #fff; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+header { background: #1F3864; color: #fff; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 .header-left { display: flex; flex-direction: column; gap: 2px; }
 .header-empresa { font-size: 16px; font-weight: 600; letter-spacing: 0.01em; }
 .header-cnpj { font-size: 11px; opacity: 0.7; }
@@ -32,21 +32,27 @@ main { max-width: 1000px; margin: 0 auto; padding: 1.5rem; }
 .error-box h3 { color: #D85A30; font-size: 14px; margin-bottom: 8px; }
 .error-box p { font-size: 13px; color: #666; line-height: 1.6; }
 
-/* KPIS */
+/* KPIs */
 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px; }
-.kpis2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+.kpis2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 10px; }
 .kpi { background: #fff; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); padding: 0.9rem 1.1rem; }
 .kpi-label { font-size: 11px; color: #888; margin-bottom: 3px; }
-.kpi-value { font-size: 20px; font-weight: 500; color: #1a1a1a; }
+.kpi-value { font-size: 18px; font-weight: 500; color: #1a1a1a; word-break: break-all; }
 .kpi-sub { font-size: 11px; color: #aaa; margin-top: 3px; }
 .pos { color: #1D9E75; } .neg { color: #D85A30; }
+
+/* SALDO ACUMULADO — card destaque */
+.kpi-saldo { background: #1F3864; border-radius: 10px; border: none; padding: 0.9rem 1.1rem; }
+.kpi-saldo .kpi-label { color: rgba(255,255,255,0.65); }
+.kpi-saldo .kpi-value { font-size: 18px; font-weight: 600; }
+.kpi-saldo .kpi-sub { color: rgba(255,255,255,0.45); }
 
 /* RESULTADO DESTAQUE */
 .resultado-box { background: #fff; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.1); padding: 1rem 1.5rem; margin-bottom: 10px; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
 .resultado-valor { font-size: 32px; font-weight: 500; }
 .resultado-label { font-size: 13px; color: #888; }
 
-/* SECTIONS */
+/* SEÇÕES */
 .section { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; }
 .sec-title { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
 .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; font-size: 12px; color: #666; }
@@ -68,7 +74,7 @@ main { max-width: 1000px; margin: 0 auto; padding: 1.5rem; }
 .prod-bar-label { font-size: 12px; color: #444; width: 150px; flex-shrink: 0; text-align: right; }
 .prod-bar-track { flex: 1; background: #f0f0ee; border-radius: 4px; height: 10px; overflow: hidden; }
 .prod-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }
-.prod-bar-info { font-size: 11px; color: #888; width: 130px; flex-shrink: 0; }
+.prod-bar-info { font-size: 11px; color: #888; width: 160px; flex-shrink: 0; }
 
 /* DETALHE PRODUTO */
 .prod-detalhe { background: #f9f9f7; border-radius: 8px; padding: 1rem; margin-top: 1rem; display: none; }
@@ -77,7 +83,7 @@ main { max-width: 1000px; margin: 0 auto; padding: 1.5rem; }
 .prod-mes-tag { background: #fff; border: 0.5px solid rgba(0,0,0,0.12); border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #444; }
 .prod-mes-tag span { color: #1D9E75; font-weight: 500; margin-left: 4px; }
 
-/* INSIGHTS */
+/* PERCEPÇÕES */
 .insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .insight-card { background: #f9f9f7; border-radius: 8px; padding: 0.9rem; }
 .ins-label { font-size: 11px; color: #999; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -90,13 +96,14 @@ main { max-width: 1000px; margin: 0 auto; padding: 1.5rem; }
 .bar-label { font-size: 11px; color: #666; width: 60px; flex-shrink: 0; text-align: right; }
 .bar-track { flex: 1; background: #f0f0ee; border-radius: 4px; height: 7px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 4px; }
-.bar-val { font-size: 11px; color: #666; width: 70px; flex-shrink: 0; }
+.bar-val { font-size: 11px; color: #666; width: 80px; flex-shrink: 0; }
 
 footer { text-align: center; padding: 1.5rem; font-size: 11px; color: #bbb; }
 .hidden { display: none; }
 
 @media (max-width: 640px) {
-  .kpis, .kpis2 { grid-template-columns: repeat(2, 1fr); }
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .kpis2 { grid-template-columns: repeat(2, 1fr); }
   .insight-grid, .desp-grid { grid-template-columns: 1fr; }
   .prod-bar-label { width: 90px; font-size: 11px; }
   .header-empresa { font-size: 13px; }
@@ -141,7 +148,8 @@ footer { text-align: center; padding: 1.5rem; font-size: 11px; color: #bbb; }
     <div class="kpis2">
       <div class="kpi"><div class="kpi-label">Receitas de caixa</div><div class="kpi-value pos" id="kpi-receita">—</div><div class="kpi-sub">dinheiro recebido</div></div>
       <div class="kpi"><div class="kpi-label">Despesas operacionais</div><div class="kpi-value neg" id="kpi-desp-op">—</div><div class="kpi-sub">custo do negócio</div></div>
-      <div class="kpi"><div class="kpi-label">Retiradas sócios</div><div class="kpi-value neg" id="kpi-retiradas">—</div><div class="kpi-sub">acumulado</div></div>
+      <div class="kpi"><div class="kpi-label">Retiradas sócios</div><div class="kpi-value" id="kpi-retiradas">—</div><div class="kpi-sub">acumulado</div></div>
+      <div class="kpi kpi-saldo"><div class="kpi-label">Saldo acumulado</div><div class="kpi-value" id="kpi-saldo-acum">—</div><div class="kpi-sub" id="kpi-saldo-periodo">todos os meses</div></div>
     </div>
 
     <div class="resultado-box">
@@ -202,7 +210,7 @@ footer { text-align: center; padding: 1.5rem; font-size: 11px; color: #bbb; }
   </div>
 </main>
 
-<footer id="footer-txt">DMS – Instituto de Inteligência Previdenciária Ltda &nbsp;·&nbsp; Uso interno</footer>
+<footer id="footer-txt">DMS – Instituto de Inteligência Previdenciária Ltda  ·  Uso interno</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
@@ -217,13 +225,18 @@ let chart1 = null, chart2 = null;
 const CORES_PROD = ['#378ADD','#1D9E75','#D85A30','#BA7517','#534AB7','#888780',
                     '#9FE1CB','#F4A261','#E76F51','#264653','#2A9D8F','#E9C46A','#F4A261','#A8DADC'];
 
+// Números SEMPRE quebrados (sem abreviação k)
 const brl = v => {
+  const neg = v < 0;
   const abs = Math.abs(v);
-  const s = abs >= 1000 ? 'R$ '+(abs/1000).toFixed(1)+'k' : 'R$ '+Math.round(abs).toLocaleString('pt-BR');
-  return (v<0?'-':'')+s;
+  const formatted = 'R$ ' + abs.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  return (neg ? '-' : '') + formatted;
 };
-const brlFull = v => (v<0?'-R$ ':'R$ ')+Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-const sum = arr => arr.reduce((a,b)=>a+b,0);
+
+// Alias — mesma função, mantém compatibilidade
+const brlFull = brl;
+
+const sum = arr => arr.reduce((a,b) => a + b, 0);
 
 async function carregarDados() {
   document.getElementById('status').textContent = 'Atualizando...';
@@ -232,203 +245,223 @@ async function carregarDados() {
   document.getElementById('error-box').classList.add('hidden');
   try {
     const res = await fetch(SHEET_URL);
-    if (!res.ok) throw new Error('HTTP '+res.status);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const json = await res.json();
-    dadosCompletos  = json.meses    || [];
+    dadosCompletos = json.meses || [];
     produtosCompletos = json.produtos || [];
     if (!dadosCompletos.length) throw new Error('Nenhum dado encontrado.');
-    popularSelects();
+    popularSelecoes();
     renderFiltros();
     renderizar(dadosCompletos);
     renderProdutos(produtosCompletos);
   } catch(e) {
     document.getElementById('loading').classList.add('hidden');
-    document.getElementById('error-msg').textContent = 'Erro: '+e.message;
+    document.getElementById('error-msg').textContent = 'Erro: ' + e.message;
     document.getElementById('error-box').classList.remove('hidden');
     document.getElementById('status').textContent = 'Erro';
   }
 }
 
-function popularSelects() {
-  const meses = dadosCompletos.map(d=>d.mes);
-  ['prod-de','prod-ate'].forEach((id,idx) => {
+function popularSelecoes() {
+  const meses = dadosCompletos.map(d => d.mes);
+  ['prod-de','prod-ate'].forEach((id, idx) => {
     const sel = document.getElementById(id);
-    sel.innerHTML = meses.map((m,i)=>`<option value="${m}" ${i===(idx===0?0:meses.length-1)?'selected':''}>${m}</option>`).join('');
+    sel.innerHTML = meses.map((m, i) =>
+      `<option value="${m}" ${i === (idx === 0 ? 0 : meses.length - 1) ? 'selected' : ''}>${m}</option>`
+    ).join('');
   });
 }
 
 function renderFiltros() {
   const container = document.getElementById('filtro-meses');
-  const meses = ['todos',...dadosCompletos.map(d=>d.mes)];
-  container.innerHTML = meses.map(m=>
-    `<button class="btn-mes ${m===mesSelecionado?'ativo':''}" onclick="filtrarMes('${m}')">${m==='todos'?'Todos':m}</button>`
+  const meses = ['todos', ...dadosCompletos.map(d => d.mes)];
+  container.innerHTML = meses.map(m =>
+    `<button class="btn-mes ${m === mesSelecionado ? 'ativo' : ''}" onclick="filtrarMes('${m}')">${m === 'todos' ? 'Todos' : m}</button>`
   ).join('');
 }
 
 function filtrarMes(mes) {
   mesSelecionado = mes;
   renderFiltros();
-  const dados = mes==='todos' ? dadosCompletos : dadosCompletos.filter(d=>d.mes===mes);
+  const dados = mes === 'todos' ? dadosCompletos : dadosCompletos.filter(d => d.mes === mes);
   renderizar(dados);
 }
 
-function renderizar(data) {
-  const meses    = data.map(d=>d.mes);
-  const vendas   = data.map(d=>d.vendas);
-  const ganho    = data.map(d=>d.ganho_liq);
-  const taxas    = data.map(d=>d.taxa);
-  const comiss   = data.map(d=>d.comissao);
-  const receitas = data.map(d=>d.receita);
-  const despOp   = data.map(d=>d.desp_op);
-  const retir    = data.map(d=>d.retiradas);
-  const result   = data.map(d=>d.resultado);
+function renderizar(dados) {
+  const meses    = dados.map(d => d.mes);
+  const vendas   = dados.map(d => d.vendas);
+  const ganho    = dados.map(d => d.ganho_liq);
+  const taxas    = dados.map(d => d.taxa);
+  const comiss   = dados.map(d => d.comissao);
+  const receitas = dados.map(d => d.receita);
+  const despOp   = dados.map(d => d.desp_op);
+  const retir    = dados.map(d => d.retiradas);
+  const resultado = dados.map(d => d.resultado);
 
-  document.getElementById('kpi-vendas').textContent   = brl(sum(vendas));
-  document.getElementById('kpi-ganho').textContent    = brl(sum(ganho));
-  document.getElementById('kpi-taxa').textContent     = brl(sum(taxas));
-  document.getElementById('kpi-comissao').textContent = brl(sum(comiss));
-  document.getElementById('kpi-receita').textContent  = brl(sum(receitas));
-  document.getElementById('kpi-desp-op').textContent  = brl(sum(despOp));
-  document.getElementById('kpi-retiradas').textContent= brl(sum(retir));
+  document.getElementById('kpi-vendas').textContent    = brl(sum(vendas));
+  document.getElementById('kpi-ganho').textContent     = brl(sum(ganho));
+  document.getElementById('kpi-taxa').textContent      = brl(sum(taxas));
+  document.getElementById('kpi-comissao').textContent  = brl(sum(comiss));
+  document.getElementById('kpi-receita').textContent   = brl(sum(receitas));
+  document.getElementById('kpi-desp-op').textContent   = brl(sum(despOp));
+  document.getElementById('kpi-retiradas').textContent = brl(sum(retir));
 
-  const totRes = sum(result);
-  const resEl  = document.getElementById('kpi-resultado-big');
-  resEl.textContent = brlFull(totRes);
-  resEl.style.color = totRes>=0?'#1D9E75':'#D85A30';
+  // Resultado do período filtrado
+  const totRes = sum(resultado);
+  const resEl = document.getElementById('kpi-resultado-big');
+  resEl.textContent = brl(totRes);
+  resEl.style.color = totRes >= 0 ? '#1D9E75' : '#D85A30';
   document.getElementById('kpi-resultado-label').textContent =
-    totRes>=0 ? '✓ Lucro de caixa acumulado' : '✗ Prejuízo de caixa acumulado';
+    totRes >= 0 ? '✓ Lucro de caixa acumulado' : '✗ Prejuízo de caixa acumulado';
 
-  const gc='rgba(0,0,0,0.06)', tc='rgba(0,0,0,0.45)';
-  if(chart1) chart1.destroy();
-  chart1 = new Chart(document.getElementById('c1'),{
-    type:'bar',
-    data:{labels:meses,datasets:[
-      {label:'Vendas brutas',    data:vendas,  backgroundColor:'#378ADD',borderRadius:3},
-      {label:'Receitas caixa',   data:receitas,backgroundColor:'#1D9E75',borderRadius:3},
-      {label:'Desp. operacional',data:despOp,  backgroundColor:'#D85A30',borderRadius:3},
-      {label:'Retiradas sócios', data:retir,   backgroundColor:'#BA7517',borderRadius:3},
+  // Saldo acumulado — sempre soma TODOS os meses, independente do filtro
+  const saldoTotal = sum(dadosCompletos.map(d => d.resultado));
+  const saldoEl = document.getElementById('kpi-saldo-acum');
+  saldoEl.textContent = brl(saldoTotal);
+  saldoEl.style.color = saldoTotal >= 0 ? '#4ade80' : '#fca5a5';
+  const primeiro = dadosCompletos[0]?.mes || '';
+  const ultimo   = dadosCompletos[dadosCompletos.length - 1]?.mes || '';
+  document.getElementById('kpi-saldo-periodo').textContent =
+    primeiro && ultimo ? `${primeiro} → ${ultimo}` : 'todos os meses';
+
+  // Gráficos
+  const gc = 'rgba(0,0,0,0.06)', tc = 'rgba(0,0,0,0.45)';
+  if (chart1) chart1.destroy();
+  chart1 = new Chart(document.getElementById('c1'), {
+    type: 'bar',
+    data: { labels: meses, datasets: [
+      { label: 'Vendas brutas',    data: vendas,   backgroundColor: '#378ADD', borderRadius: 3 },
+      { label: 'Receitas caixa',   data: receitas, backgroundColor: '#1D9E75', borderRadius: 3 },
+      { label: 'Desp. operacional',data: despOp,   backgroundColor: '#D85A30', borderRadius: 3 },
+      { label: 'Retiradas sócios', data: retir,    backgroundColor: '#BA7517', borderRadius: 3 },
     ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+brl(ctx.raw)}}},
-      scales:{x:{ticks:{color:tc,font:{size:11},autoSkip:false,maxRotation:0},grid:{color:gc}},
-              y:{ticks:{color:tc,font:{size:11},callback:v=>brl(v)},grid:{color:gc}}}}
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + brl(ctx.raw) } } },
+      scales: {
+        x: { ticks: { color: tc, font: { size: 11 }, autoSkip: false, maxRotation: 0 }, grid: { color: gc } },
+        y: { ticks: { color: tc, font: { size: 11 }, callback: v => brl(v) }, grid: { color: gc } }
+      }
+    }
   });
 
-  if(chart2) chart2.destroy();
-  chart2 = new Chart(document.getElementById('c2'),{
-    type:'bar',
-    data:{labels:meses,datasets:[{label:'Resultado',data:result,
-      backgroundColor:result.map(v=>v>=0?'#1D9E75':'#D85A30'),borderRadius:3}]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+brl(ctx.raw)}}},
-      scales:{x:{ticks:{color:tc,font:{size:11},autoSkip:false,maxRotation:0},grid:{color:gc}},
-              y:{ticks:{color:tc,font:{size:11},callback:v=>brl(v)},grid:{color:gc}}}}
+  if (chart2) chart2.destroy();
+  chart2 = new Chart(document.getElementById('c2'), {
+    type: 'bar',
+    data: { labels: meses, datasets: [{ label: 'Resultado', data: resultado,
+      backgroundColor: resultado.map(v => v >= 0 ? '#1D9E75' : '#D85A30'), borderRadius: 3 }] },
+    options: { responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ' ' + brl(ctx.raw) } } },
+      scales: {
+        x: { ticks: { color: tc, font: { size: 11 }, autoSkip: false, maxRotation: 0 }, grid: { color: gc } },
+        y: { ticks: { color: tc, font: { size: 11 }, callback: v => brl(v) }, grid: { color: gc } }
+      }
+    }
   });
 
   // Barras despesas/retiradas
-  const maxOp  = Math.max(...despOp,1);
-  document.getElementById('bars-op').innerHTML = data
-    .filter(d=>d.desp_op>0)
-    .map(d=>`<div class="bar-row">
+  const maxOp = Math.max(...despOp, 1);
+  document.getElementById('bars-op').innerHTML = dados
+    .filter(d => d.desp_op > 0)
+    .map(d => `<div class="bar-row">
       <span class="bar-label">${d.mes}</span>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.desp_op/maxOp*100)}%;background:#D85A30"></div></div>
       <span class="bar-val">${brl(d.desp_op)}</span></div>`).join('') || '<p style="font-size:12px;color:#aaa">Sem dados.</p>';
 
-  const maxRet = Math.max(...retir,1);
-  document.getElementById('bars-ret').innerHTML = data
-    .filter(d=>d.retiradas>0)
-    .map(d=>`<div class="bar-row">
+  const maxRet = Math.max(...retir, 1);
+  document.getElementById('bars-ret').innerHTML = dados
+    .filter(d => d.retiradas > 0)
+    .map(d => `<div class="bar-row">
       <span class="bar-label">${d.mes}</span>
       <div class="bar-track"><div class="bar-fill" style="width:${Math.round(d.retiradas/maxRet*100)}%;background:#BA7517"></div></div>
       <span class="bar-val">${brl(d.retiradas)}</span></div>`).join('') || '<p style="font-size:12px;color:#aaa">Nenhuma retirada.</p>';
 
-  // Insights
-  const comDados = data.filter(d=>d.receita>0||d.vendas>0);
+  // Percepções
+  const comDados = dados.filter(d => d.receita > 0 || d.vendas > 0);
   const insights = [];
-  if(comDados.length){
-    const maxRec  = comDados.reduce((a,b)=>b.receita>a.receita?b:a);
-    const maxRes  = comDados.reduce((a,b)=>b.resultado>a.resultado?b:a);
-    const maxVend = comDados.reduce((a,b)=>b.vendas>a.vendas?b:a);
-    const minRes  = comDados.reduce((a,b)=>b.resultado<a.resultado?b:a);
+  if (comDados.length) {
+    const maxRec  = comDados.reduce((a,b) => b.receita   > a.receita   ? b : a);
+    const maxRes  = comDados.reduce((a,b) => b.resultado > a.resultado ? b : a);
+    const maxVend = comDados.reduce((a,b) => b.vendas    > a.vendas    ? b : a);
+    const minRes  = comDados.reduce((a,b) => b.resultado < a.resultado ? b : a);
     insights.push(
-      {label:'Maior receita de caixa',  mes:maxRec.mes,  val:brlFull(maxRec.receita),   cor:'#1D9E75',obs:'Mês com maior entrada real na conta.'},
-      {label:'Melhor resultado',         mes:maxRes.mes,  val:brlFull(maxRes.resultado),  cor:'#1D9E75',obs:'Melhor equilíbrio entre receita e saídas.'},
-      {label:'Maior volume de vendas',   mes:maxVend.mes, val:brlFull(maxVend.vendas),    cor:'#378ADD',obs:'Vendas viram caixa 30 dias depois (Eduzz).'},
-      {label:'Pior resultado',           mes:minRes.mes,  val:brlFull(minRes.resultado),  cor:'#D85A30',obs:'Maior desequilíbrio entre entrada e saídas.'},
+      { label: 'Maior receita de caixa',    mes: maxRec.mes,  val: brl(maxRec.receita),    cor: '#1D9E75', obs: 'Mês com maior entrada real na conta.' },
+      { label: 'Melhor resultado',           mes: maxRes.mes,  val: brl(maxRes.resultado),  cor: '#1D9E75', obs: 'Melhor equilíbrio entre receita e saídas.' },
+      { label: 'Maior volume de vendas',     mes: maxVend.mes, val: brl(maxVend.vendas),    cor: '#378ADD', obs: 'Vendas viram caixa 30 dias depois (Eduzz).' },
+      { label: 'Pior resultado',             mes: minRes.mes,  val: brl(minRes.resultado),  cor: '#D85A30', obs: 'Maior desequilíbrio entre entradas e saídas.' },
     );
   }
-  const mesesPos = data.filter(d=>d.resultado>0).length;
-  const mesesNeg = data.filter(d=>d.resultado<0).length;
+  const mesesPos = dados.filter(d => d.resultado > 0).length;
+  const mesesNeg = dados.filter(d => d.resultado < 0).length;
   insights.push(
-    {label:'Meses no lucro',    mes:mesesPos+' de '+data.length, val:'', cor:'#1D9E75', obs:'Meses com resultado positivo.'},
-    {label:'Meses no prejuízo', mes:mesesNeg+' de '+data.length, val:'', cor:'#D85A30', obs:'Meses com resultado negativo.'},
+    { label: 'Meses com lucro',    mes: mesesPos + ' de ' + dados.length, val: '', cor: '#1D9E75', obs: 'Meses com resultado positivo.' },
+    { label: 'Meses no prejuízo',  mes: mesesNeg + ' de ' + dados.length, val: '', cor: '#D85A30', obs: 'Meses com resultado negativo.' },
   );
-  document.getElementById('insights').innerHTML = insights.map(ins=>`
+  document.getElementById('insights').innerHTML = insights.map(ins => `
     <div class="insight-card">
       <div class="ins-label">${ins.label}</div>
-      <div class="ins-month" style="color:${ins.cor};font-size:14px;font-weight:500;margin-bottom:3px">${ins.mes}${ins.val?' — '+ins.val:''}</div>
+      <div class="ins-month" style="color:${ins.cor};font-size:14px;font-weight:500;margin-bottom:3px">${ins.mes}${ins.val ? ' — ' + ins.val : ''}</div>
       <div class="ins-value">${ins.obs}</div>
     </div>`).join('');
 
   const agora = new Date().toLocaleString('pt-BR');
-  document.getElementById('status').textContent = 'Atualizado em '+agora;
-  document.getElementById('footer-txt').textContent = 'DMS – Instituto de Inteligência Previdenciária Ltda · Atualizado em '+agora+' · Uso interno';
+  document.getElementById('status').textContent = 'Atualizado em ' + agora;
+  document.getElementById('footer-txt').textContent = 'DMS – Instituto de Inteligência Previdenciária Ltda · Atualizado em ' + agora + ' · Uso interno';
   document.getElementById('loading').classList.add('hidden');
   document.getElementById('conteudo').classList.remove('hidden');
 }
 
 function renderProdutos(prods) {
-  if(!prods.length){
+  if (!prods.length) {
     document.getElementById('prod-bars').innerHTML = '<p style="font-size:12px;color:#aaa">Sem dados de produtos.</p>';
     return;
   }
-  const maxVal = Math.max(...prods.map(p=>p.total),1);
-  document.getElementById('prod-bars').innerHTML = prods.map((p,i)=>`
-    <div class="prod-bar-row" onclick="toggleDetalhe('${p.apelido.replace(/'/g,"\\'")}')">
+  const maxVal = Math.max(...prods.map(p => p.total), 1);
+  document.getElementById('prod-bars').innerHTML = prods.map((p, i) => `
+    <div class="prod-bar-row" onclick="toggleDetalhe('${p.apelido.replace(/'/g, "\\'")}')">
       <span class="prod-bar-label">${p.apelido}</span>
       <div class="prod-bar-track">
-        <div class="prod-bar-fill" style="width:${Math.round(p.total/maxVal*100)}%;background:${CORES_PROD[i%CORES_PROD.length]}"></div>
+        <div class="prod-bar-fill" style="width:${Math.round(p.total/maxVal*100)}%;background:${CORES_PROD[i % CORES_PROD.length]}"></div>
       </div>
-      <span class="prod-bar-info">${brl(p.total)} &nbsp;·&nbsp; ${p.qtd}x</span>
+      <span class="prod-bar-info">${brl(p.total)}  ·  ${p.qtd}x</span>
     </div>`).join('');
 }
 
 function toggleDetalhe(apelido) {
-  const prod = produtosCompletos.find(p=>p.apelido===apelido);
-  const box  = document.getElementById('prod-detalhe');
-  if(prodDetalheAtivo===apelido){ box.style.display='none'; prodDetalheAtivo=null; return; }
+  const prod = produtosCompletos.find(p => p.apelido === apelido);
+  const box = document.getElementById('prod-detalhe');
+  if (prodDetalheAtivo === apelido) { box.style.display = 'none'; prodDetalheAtivo = null; return; }
   prodDetalheAtivo = apelido;
-  document.getElementById('prod-detalhe-nome').textContent = apelido+' — vendas por mês';
-  document.getElementById('prod-detalhe-meses').innerHTML = prod.meses.map(m=>
+  document.getElementById('prod-detalhe-nome').textContent = apelido + ' — vendas por mês';
+  document.getElementById('prod-detalhe-meses').innerHTML = prod.meses.map(m =>
     `<div class="prod-mes-tag">${m.mes}<span>${brl(m.val)}</span></div>`).join('');
-  box.style.display='block';
+  box.style.display = 'block';
 }
 
 function aplicarFiltroProdutos() {
   const de  = document.getElementById('prod-de').value;
   const ate = document.getElementById('prod-ate').value;
-  const todosMeses = dadosCompletos.map(d=>d.mes);
+  const todosMeses = dadosCompletos.map(d => d.mes);
   const idxDe  = todosMeses.indexOf(de);
   const idxAte = todosMeses.indexOf(ate);
-  const mesesFiltro = todosMeses.slice(Math.min(idxDe,idxAte), Math.max(idxDe,idxAte)+1);
+  const mesesFiltro = todosMeses.slice(Math.min(idxDe, idxAte), Math.max(idxDe, idxAte) + 1);
 
-  const filtrados = produtosCompletos.map(p=>({
+  const filtrados = produtosCompletos.map(p => ({
     ...p,
-    total: p.meses.filter(m=>mesesFiltro.includes(m.mes)).reduce((a,m)=>a+m.val,0),
-    qtd:   p.meses.filter(m=>mesesFiltro.includes(m.mes)).reduce((a,m)=>a+1,0),
-    meses: p.meses.filter(m=>mesesFiltro.includes(m.mes))
-  })).filter(p=>p.total>0).sort((a,b)=>b.total-a.total);
+    total: p.meses.filter(m => mesesFiltro.includes(m.mes)).reduce((a, m) => a + m.val, 0),
+    qtd:   p.meses.filter(m => mesesFiltro.includes(m.mes)).length,
+    meses: p.meses.filter(m => mesesFiltro.includes(m.mes))
+  })).filter(p => p.total > 0).sort((a, b) => b.total - a.total);
 
   renderProdutos(filtrados);
-  document.getElementById('prod-detalhe').style.display='none';
-  prodDetalheAtivo=null;
+  document.getElementById('prod-detalhe').style.display = 'none';
+  prodDetalheAtivo = null;
 }
 
 function limparFiltroProdutos() {
-  popularSelects();
+  popularSelecoes();
   renderProdutos(produtosCompletos);
-  document.getElementById('prod-detalhe').style.display='none';
-  prodDetalheAtivo=null;
+  document.getElementById('prod-detalhe').style.display = 'none';
+  prodDetalheAtivo = null;
 }
 
 carregarDados();
